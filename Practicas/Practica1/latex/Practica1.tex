@@ -1,0 +1,170 @@
+%----------------------------------------------------------------------------------------
+%	PAQUETES Y OTRAS CONFIGURACIONES
+%----------------------------------------------------------------------------------------
+
+\documentclass[paper=letter, fontsize=11pt]{scrartcl} % Tamaño de papel y letra para el documento
+
+\usepackage[utf8]{inputenc} % Los caracteres acentuados se pueden escribir normalmente en el código
+\usepackage[T1]{fontenc} % Configuración de fuente de salida
+\usepackage{fourier} % Se usa una fuente diferente al default
+\usepackage[spanish]{babel} % Se configura como documento en español
+\usepackage{amsmath,amsfonts,amsthm} % Paquetes para escribir formulas matemáticas
+\usepackage{graphicx} % Paquetes para incluir imágenes
+
+\usepackage{sectsty} % Paquete para configuración de secciones
+\allsectionsfont{\centering \normalfont \scshape} % Los títulos de las secciones son centrados, con la misma fuente y pequeñas mayúsculas
+
+\usepackage{fancyhdr} % Paquete para personalizar pies y cabeceras de página
+\pagestyle{fancyplain} % Todas las páginas con las mismas cabeceras y pies de página
+\fancyhead{} % Sin cabecera
+\fancyfoot[L]{} % Vacío en la izquierda del pie de página
+\fancyfoot[C]{} % Vacío en el centro del pie de página
+\fancyfoot[R]{\thepage} % Número de página en el pie de pagina
+\renewcommand{\headrulewidth}{0pt} % Sin lineas en la cabecera
+\renewcommand{\footrulewidth}{0pt} % Sin lineas en el pie de página
+\setlength{\headheight}{13.6pt} % Altura de cabecera
+
+\numberwithin{equation}{section} % Numera ecuaciones en cada sección
+\numberwithin{figure}{section} % Numera figuras en cada sección
+\numberwithin{table}{section} % Numera tablas en cada sección
+
+\setlength\parindent{0pt} % Quita la indentación de los párrafos
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Comando personalizado para hacer linea horizontal
+
+%----------------------------------------------------------------------------------------
+%	TITULO
+%----------------------------------------------------------------------------------------
+
+\title{	
+	\normalfont \normalsize
+	\begin{figure}[h]
+		\begin{center}
+			\includegraphics[width=0.3\textwidth]{UNITEC.png} % La imagen esta incluida en el mismo directorio del código
+		\end{center}
+	\end{figure}
+	\textsc{Instrumentación y Control} \\ [25pt]
+	\horrule{0.5pt} \\[0.4cm] % Linea horizontal delgada
+	\huge Práctica 1 - Sistemas eléctricos \\ % Titulo de la práctica
+	\horrule{2pt} \\[0.5cm] % Linea horizontal mas gruesa
+}
+
+\author{Roberto Cadena Vega} % Nombre del profesor
+
+\date{\normalsize 27 de enero de 2014} % Fecha de la práctica
+
+%----------------------------------------------------------------------------------------
+%	EMPIEZA EL DOCUMENTO
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle % Imprime el título
+
+%----------------------------------------------------------------------------------------
+%	OBJETIVOS
+%----------------------------------------------------------------------------------------
+
+\section{Objetivos}
+
+	Familiarizarse con el equipo del laboratorio de electrónica y comprender el funcionamiento de circuitos eléctricos básicos.
+
+%----------------------------------------------------------------------------------------
+%	CONOCIMIENTOS PREVIOS
+%----------------------------------------------------------------------------------------
+
+\section{Conocimientos Previos}
+
+%----------------------------------------------------------------------------------------
+
+	\subsection{Ley de Ohm}
+
+		La ley de Ohm es la base de cualquier modelo para un sistema eléctrico, por lo tanto nos tomamos un momento para describirla.
+
+		\begin{equation}
+			V = I \cdot R
+		\end{equation}
+
+		Esta ecuación describe la relación entre la diferencia de potencial (la llamamos comúnmente voltaje) en un elemento eléctrico y la corriente eléctrica. El elemento que las relaciona es la resistencia. Lo que nos dice esta ley es que si tenemos un voltaje aplicado a una resistencia $V_1$, pasara a través de ella una corriente $I_1$ y tendrá el siguiente valor:
+
+		\begin{equation}
+			I_1 = \frac{V_1}{R_1}
+		\end{equation}
+
+%----------------------------------------------------------------------------------------
+%	EQUIPO
+%----------------------------------------------------------------------------------------
+
+\section{Equipo}
+
+	\begin{itemize}
+		\item Fuente de Alimentación
+		\item Osciloscopio
+		\item Generador de Funciones
+		\item Multimetro
+		\item Cables de alimentación
+		\item Cables banana - caimán
+		\item Pinzas
+	\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%	MATERIALES
+%----------------------------------------------------------------------------------------
+
+\section{Materiales}
+
+	\begin{itemize}
+		\item Protoboard
+		\item LED
+		\item Resistencias
+		\begin{itemize}
+			\item $220 \Omega$
+			\item $330 \Omega$
+			\item $1 k\Omega$
+		\end{itemize}
+		\item Cables
+	\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%	DESARROLLO
+%----------------------------------------------------------------------------------------
+
+\section{Desarrollo}
+    Lo primero que tenemos que hacer es realizar el circuito eléctrico en el protoboard. El circuito lo podemos que tenemos que realizar tiene el siguiente diagrama:
+
+    \begin{figure}[h]
+    	\begin{center}
+    		\includegraphics[width=0.3\textwidth]{LED-bateria-diagrama.png} % La imagen esta incluida en el mismo directorio del código
+    	\end{center}
+    \end{figure}
+
+    Este diagrama eléctrico lo único que nos dice es que tenemos que conectar la parte positiva de nuestra batería a el ánodo de nuestro LED, y el cátodo del LED, a una patita de la resistencia. Despues conectamos la otra patita de la resistencia a la parte negativa de la batería y habremos terminado con nuestro circuito eléctrico.
+
+    Pero esto aun no nos da la suficiente información para hacerlo en nuestro protoboard. Esto lo podemos ver en nuestro siguiente diagrama:
+
+    \begin{figure}[h]
+    	\begin{center}
+    		\includegraphics[width=0.3\textwidth]{LED-bateria.png} % La imagen esta incluida en el mismo directorio del código
+    	\end{center}
+    \end{figure}
+
+    El protoboard tiene conexiones internas, que aprovechamos para hacer nuestro circuito. Primero que nada nuestro protoboard esta dividido en varias partes. La parte central tiene conexiones horizontales, y las secciones laterales tienen conexiones verticales. Una práctica común es conectar el voltaje positivo de alimentación en la columna marcada de rojo en las secciones laterales y el voltaje negativo (o de referencia) en la columna marcada con azul, así siempre tenemos a la mano la alimentación en un circuito complejo.
+
+    \begin{figure}[h]
+    	\begin{center}
+    		\includegraphics[width=0.3\textwidth]{protoboard.png} % La imagen esta incluida en el mismo directorio del código
+    	\end{center}
+    \end{figure}
+
+%----------------------------------------------------------------------------------------
+%	CONCLUSIONES
+%----------------------------------------------------------------------------------------
+
+\section{Conclusiones}
+	El alumno debe describir sus conclusiones al final de su reporte de práctica.
+    
+%----------------------------------------------------------------------------------------
+%	FIN DEL DOCUMENTO
+%----------------------------------------------------------------------------------------
+
+\end{document}
