@@ -91,11 +91,37 @@
 			I_1 = \frac{V_1}{R_1}
 		\end{equation}
 
+		Recordemos también que si un circuito esta en serie, todos los elementos tienen la misma corriente, es decir:
+
+		\begin{equation}
+			I_1 = I_2 = I_3 = ... = I_T
+		\end{equation}
+
+		Y que el voltaje total en un circuito en serie será la suma de todos los voltajes:
+
+		\begin{equation}
+			V_1 + V_2 + V_3 + ... = V_T
+		\end{equation}
+
+		De manera contraria, cuando tenemos un circuito en paralelo, las corrientes a través de cada uno de los elementos en paralelo se suma para obtener un total, y el voltaje en cada uno de estos elementos es el mismo
+
+		\begin{equation}
+			I_1 + I_2 + I_3 + ... = I_T
+		\end{equation}
+
+		\begin{equation}
+			V_1 = V_2 = V_3 = ... = V_T
+		\end{equation}
+
+		A lo largo de la práctica se te pedirá que midas y calcules diferentes valores relacionados con la Ley de Ohm. Asegúrate de analizar primero si el circuito esta en serie o en paralelo.
+
 %----------------------------------------------------------------------------------------
 %	EQUIPO
 %----------------------------------------------------------------------------------------
 
 \section{Equipo}
+
+	El siguiente equipo será proporcionado por el laboratorio, siempre y cuando lleguen en los primeros 15 minutos de la práctica, y hagan el vale conteniendo el siguiente equipo (exceptuando las pinzas).
 
 	\begin{itemize}
 		\item Fuente de Alimentación
@@ -115,7 +141,7 @@
 
 	\begin{itemize}
 		\item Protoboard
-		\item LED
+		\item LED (no importa el color, aunque los difusos son mas fáciles de ver en las condiciones de iluminación del laboratorio)
 		\item Resistencias
 		\begin{itemize}
 			\item $220 \Omega$
@@ -130,38 +156,97 @@
 %----------------------------------------------------------------------------------------
 
 \section{Desarrollo}
-    Lo primero que tenemos que hacer es realizar el circuito eléctrico en el protoboard. El circuito lo podemos que tenemos que realizar tiene el siguiente diagrama:
+
+    Lo primero que tenemos que hacer es realizar el circuito eléctrico en el protoboard. El circuito lo podemos ver en la figura \ref{dia:elecir}.
 
     \begin{figure}[h]
     	\begin{center}
     		\includegraphics[width=0.3\textwidth]{LED-bateria-diagrama.png} % La imagen esta incluida en el mismo directorio del código
+    		\caption{Diagrama eléctrico del circuito a ensamblar.}
+    		\label{dia:elecir}
     	\end{center}
     \end{figure}
 
-    Este diagrama eléctrico lo único que nos dice es que tenemos que conectar la parte positiva de nuestra batería a el ánodo de nuestro LED, y el cátodo del LED, a una patita de la resistencia. Despues conectamos la otra patita de la resistencia a la parte negativa de la batería y habremos terminado con nuestro circuito eléctrico.
+    Este diagrama eléctrico lo único que nos dice es que tenemos que conectar la parte positiva de nuestra batería a el ánodo de nuestro LED, y el cátodo del LED, a una patita de la resistencia. Después conectamos la otra patita de la resistencia a la parte negativa de la batería y habremos terminado con nuestro circuito eléctrico.
 
-    Pero esto aun no nos da la suficiente información para hacerlo en nuestro protoboard. Esto lo podemos ver en nuestro siguiente diagrama:
+    Pero esto aun no nos da la suficiente información para hacerlo en nuestro protoboard. Esto lo podemos ver en la figura \ref{dia:cir}.
 
     \begin{figure}[h]
     	\begin{center}
-    		\includegraphics[width=0.3\textwidth]{LED-bateria.png} % La imagen esta incluida en el mismo directorio del código
+    		\includegraphics[width=0.5\textwidth]{LED-bateria.png} % La imagen esta incluida en el mismo directorio del código
+    		\caption{Diagrama del circuito a ensamblar.}
+    		\label{dia:cir}
     	\end{center}
     \end{figure}
 
-    El protoboard tiene conexiones internas, que aprovechamos para hacer nuestro circuito. Primero que nada nuestro protoboard esta dividido en varias partes. La parte central tiene conexiones horizontales, y las secciones laterales tienen conexiones verticales. Una práctica común es conectar el voltaje positivo de alimentación en la columna marcada de rojo en las secciones laterales y el voltaje negativo (o de referencia) en la columna marcada con azul, así siempre tenemos a la mano la alimentación en un circuito complejo.
+    El protoboard tiene conexiones internas, que aprovechamos para hacer nuestro circuito. Primero que nada nuestro protoboard esta dividido en varias partes. La parte central tiene conexiones horizontales, y las secciones laterales tienen conexiones verticales. Una práctica común es conectar el voltaje positivo de alimentación en la columna marcada de rojo en las secciones laterales y el voltaje negativo (o de referencia) en la columna marcada con azul, así siempre tenemos a la mano la alimentación en un circuito complejo (Ver la figura \ref{dia:proto}).
 
     \begin{figure}[h]
     	\begin{center}
-    		\includegraphics[width=0.3\textwidth]{protoboard.png} % La imagen esta incluida en el mismo directorio del código
+    		\includegraphics[width=0.25\textwidth]{protoboard.png} % La imagen esta incluida en el mismo directorio del código
+    		\caption{Protoboard.}
+    		\label{dia:proto}
     	\end{center}
     \end{figure}
+
+    Una vez que tenemos nuestro circuito eléctrico ensamblado, podemos conectarlo a nuestra fuente de alimentación. En caso de que tengas un par de baterías AA con una manera de conectarlas, puedes hacerlo de la manera en que viene indicado en la figura \ref{dia:cir}, pero si no la has conseguido aun, no hay problema. Podemos usar la fuente de alimentación del laboratorio.
+
+    Para usar la fuente de alimentación del laboratorio tenemos que asegurarnos de que este configurada el voltaje que queremos y que la estas conectando de la manera correcta. Por lo que te sugiero que pongas atención en la explicación que se hará en el momento de la práctica.
 
 %----------------------------------------------------------------------------------------
 %	CONCLUSIONES
 %----------------------------------------------------------------------------------------
 
 \section{Conclusiones}
-	El alumno debe describir sus conclusiones al final de su reporte de práctica.
+	El alumno deberá describir sus conclusiones al final de su reporte de práctica.
+    
+%----------------------------------------------------------------------------------------
+%	HOJA DE ANOTACIONES
+%----------------------------------------------------------------------------------------
+
+\clearpage
+\section{Hoja de Anotaciones}
+	Anota los pasos a seguir para utilizar correctamente la fuente de alimentación.
+
+	\begin{enumerate}
+		\item
+		\item
+		\item
+		\item 
+	\end{enumerate}
+
+	Realiza las mediciones de la resistencia en el primer circuito:
+
+	\begin{center}
+		\begin{tabular}{|p{1.5cm}|p{1.5cm}|p{1.5cm}|}
+			\hline
+			$V$ & $I$ & $R$          \\
+			\hline
+			    &     & $220 \Omega$ \\
+			\hline
+			    &     & $330 \Omega$ \\
+			\hline
+			    &     & $1 k \Omega$ \\
+			\hline
+		\end{tabular}
+	\end{center}
+
+	Realiza las mediciones del LED en el primer circuito:
+
+	\begin{center}
+		\begin{tabular}{|p{1.5cm}|p{1.5cm}|p{1.5cm}|}
+			\hline
+			$V$ & $I$ & $R$ \\
+			\hline
+			    &     &     \\
+			\hline
+			    &     &     \\
+			\hline
+			    &     &     \\
+			\hline
+		\end{tabular}
+	\end{center}
+
     
 %----------------------------------------------------------------------------------------
 %	FIN DEL DOCUMENTO
