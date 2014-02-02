@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1391373010 "Practica1.tex" "Practica1.pdf" "Practica1" 1391373014
+["pdflatex"] 1391372950 "Practica2.tex" "Practica2.pdf" "Practica2" 1391372952
   "../../style/practica.tex" 1391371154 1885 47bb38b654e5dedf0ce55ad02b508b6a ""
   "/usr/local/texlive/2013/texmf-dist/tex/context/base/supp-pdf.mkii" 1337017135 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/local/texlive/2013/texmf-dist/tex/generic/babel-spanish/spanish.ldf" 1367879021 22488 2fdfe38f9b9c2fe7dc305567ba2c23ba ""
@@ -61,13 +61,10 @@
   "/usr/local/texlive/2013/texmf-dist/tex/latex/oberdiek/kvoptions.sty" 1335995445 22417 c74ff4af6a1aa2b65d1924020edbbe11 ""
   "/usr/local/texlive/2013/texmf-dist/tex/latex/pdftex-def/pdftex.def" 1306616590 55368 3c8a0d99822330f2dfabc0dfb09ce897 ""
   "/usr/local/texlive/2013/texmf-dist/tex/latex/sectsty/sectsty.sty" 1137110779 22423 d476012cd03f82f9475ad54ba6cd3267 ""
-  "LED-bateria-diagrama.png" 1390095400 31558 c18a25cc7490e0865ef8168e91e30195 ""
-  "LED-bateria.png" 1390002354 206541 8aa36ba2b55ed4564ae5fda4832f5ca3 ""
-  "Practica1.aux" 1391373013 1273 1da2b883024971811799047de2039531 ""
-  "Practica1.tex" 1391373010 10777 6e32e3a20923d2a6e990b76b2eeaf2b3 ""
+  "Practica2.aux" 1391372952 844 4051cbdc9c0650e4fcbf7f05cfba31ac ""
+  "Practica2.tex" 1391372949 5694 0486d98f6d24b292ddd308cd871bad26 ""
   "UNITEC.png" 1390066638 8813 9ea5a34d3c859fa3b0ba545cc69e59f0 ""
-  "protoboard.png" 1390096069 115591 8ebaeeb1f05d9c8dc422f1b165d9cf58 ""
   (generated)
-  "Practica1.aux"
-  "Practica1.pdf"
-  "Practica1.log"
+  "Practica2.aux"
+  "Practica2.pdf"
+  "Practica2.log"
