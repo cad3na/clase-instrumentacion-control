@@ -55,7 +55,35 @@
 
 		Los sensores nos ayudarán a hacer esto, pero primero tenemos que aprender a usarlos.
 
+		El sensor que utilizaremos en esta práctica es el LM35, por lo que tendrán que descargar su datasheet, pero tal vez te preguntes que es un datasheet... Bien, pues todos los elementos electrónicos tienen hojas de especificaciones en los que viene toda la información relevante para implementar su uso en un sistema eléctrico.
 
+		Pues lo primero que tienes que hacer es descargar de internet el datasheet de nuestro sensor, una simple búsqueda en Google de "datasheet LM35", te dará como resultado un archivo en formato PDF que puedes descargar e imprimir, para su uso en la práctica.
+
+		Una vez que tengamos nuestro datasheet, lo que tienes que buscar es el voltaje necesario para alimentar nuestro sensor (en caso de que sea necesario). Otro valor importante es la señal que nos regresará el sensor. Otros factores importantes son el tiempo de respuesta, la resistividad interna del elemento, etc., sin embargo, no serán de utilidad en esta práctica.
+
+	\subsection{Acondicionamiento}
+
+		Como te habrás dado cuenta en tu datasheet, el voltaje que nos entrega como salida el LM35 es de $0 V$ a $5 V$ si tomamos en cuenta que el rango de temperaturas que queremos medir es de $0 ^oC$ a $50 ^oC$, pero si quisiéramos meter esto en un sistema industrial, normalmente tendríamos que normalizar este rango a $0 V$ a $24 V$.
+
+		Cual sería el numero por el que tenemos que multiplicar, para que a señal del LM35 se convierta a la que queremos? Cuando hablamos de señales que tenemos que acondicionar, este numero le llamamos Ganancia.
+
+		\begin{center}
+			\tikzstyle{input} = [coordinate]
+			\tikzstyle{output} = [coordinate]
+			\tikzstyle{block} = [draw, rectangle, minimum height=3em, minimum width=6em]
+			\tikzstyle{init} = [pin edge={to-, thin, black}]
+
+			\begin{tikzpicture}[auto, node distance=3cm, >=latex']
+				\node [input, name=entrada] {};
+				\node [block, right of=entrada] (sensor) {Señal};
+				\node [block, right of=sensor] (amplificador) {Ganancia};
+				\node [output, right of=amplificador] (salida) {};
+
+				\draw [->] (entrada) -- node[name=x] {$x$} (sensor);
+				\draw [->] (sensor) -- node[name=x] {$u$} (amplificador);
+				\draw [->] (amplificador) -- node[name=y] {$y$} (salida);
+			\end{tikzpicture}
+		\end{center}
 
 %----------------------------------------------------------------------------------------
 %	EQUIPO
@@ -81,14 +109,15 @@
 
 	\begin{itemize}
 		\item Protoboard
-		\item LED (no importa el color, aunque los difusos son mas fáciles de ver en las condiciones de iluminación del laboratorio)
 		\item LM35
-		\item LM741
+		\item LM741 o LM358
 		\item Resistencias
 		\begin{itemize}
 			\item $220 \Omega$
 			\item $330 \Omega$
 			\item $1 k\Omega$
+			\item $3.3 k\Omega$
+			\item $10 k\Omega$
 		\end{itemize}
 		\item Cables
 	\end{itemize}
