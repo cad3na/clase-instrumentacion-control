@@ -65,7 +65,7 @@
 
 		Como te habrás dado cuenta en tu datasheet, el voltaje que nos entrega como salida el LM35 es de $0 V$ a $5 V$ si tomamos en cuenta que el rango de temperaturas que queremos medir es de $0 ^oC$ a $50 ^oC$, pero si quisiéramos meter esto en un sistema industrial, normalmente tendríamos que normalizar este rango a $0 V$ a $24 V$.
 
-		Cual sería el numero por el que tenemos que multiplicar, para que a señal del LM35 se convierta a la que queremos? Cuando hablamos de señales que tenemos que acondicionar, este numero le llamamos Ganancia.
+		¿Cuál sería el número por el que tenemos que multiplicar, para que la señal del LM35 se convierta a la que queremos? Cuando hablamos de señales que tenemos que acondicionar, a este número le llamamos Ganancia.
 
 		\begin{center}
 			\tikzstyle{input} = [coordinate]
@@ -85,11 +85,11 @@
 			\end{tikzpicture}
 		\end{center}
 
-		Esta ganancia la vamos a obtener con un sistema eléctrico conocido como aplificador.
+		Esta ganancia la vamos a obtener con un sistema eléctrico conocido como amplificador.
 
 		\subsubsection{Amplificador}
 
-			Los amplificadores estan compuestos de circuitos integrados llamados Amplificadores Operacionales (u OPAMP's para los cuates), resistencias y cables, cosas que ya sabemos usar.
+			Los amplificadores están compuestos de circuitos integrados llamados Amplificadores Operacionales (u OPAMP's para los cuates), resistencias y cables, cosas que ya sabemos usar.
 
 			El diagrama para un amplificador inversor es el siguiente:
 
@@ -132,7 +132,7 @@
 				\end{tikzpicture}
 			\end{center}
 
-			Al ver esto, notamos que tan solo tenemos que calcular la ganancia, y buscar 2 valores de resistencias que nos de el valor de ganancia deseado.
+			Al ver esto, notamos que tan solo tenemos que calcular la ganancia, y buscar 2 valores de resistencias que nos dé el valor de ganancia deseado.
 
 			Tan solo un detalle, el voltaje que sale de este bloque va a ser negativo, pero podemos agregar otro bloque con una ganancia $-1$.
 
@@ -168,7 +168,7 @@
 
 	\begin{itemize}
 		\item 1 Fuente de Alimentación
-		\item 1 Multimetro
+		\item 1 Multímetro
 		\item 1 Cable de alimentación
 		\item 2 Cables banana - caimán
 		\item Pinzas
@@ -225,15 +225,15 @@
 \section{Hoja de Anotaciones}
 	
 	\begin{enumerate}
-		\item Cual es la ganancia necesaria para normalizar nuestra señal a la requerida? \newline
-		\item Cual es el voltaje de alimentación que necesita el amplificador? \newline
-		\item Cual es el valor de $R_f$ que necesitas para obtener esa ganancia? \newline
-		\item Cual es el valor de $R_I$ que necesitas para obtener esa ganancia? \newline
-		\item Cual es la temperatura ambiente en el momento de tus mediciones? \newline
-		\item Cual es el valor obtenido al medir con el multimetro, el voltaje de salida en el sensor? \newline
-		\item Cual es el valor obtenido al medir con el multimetro, el voltaje de salida en el primer amplificador? \newline
-		\item Cual es el valor obtenido al medir con el multimetro, el voltaje de salida en el segundo amplificador? \newline
-		\item Que pasa si acercas una fuente de calor al sensor?
+		\item ¿Cuál es la ganancia necesaria para normalizar nuestra señal a la requerida? \newline
+		\item ¿Cuál es el voltaje de alimentación que necesita el amplificador? \newline
+		\item ¿Cuál es el valor de $R_f$ que necesitas para obtener esa ganancia? \newline
+		\item ¿Cuál es el valor de $R_I$ que necesitas para obtener esa ganancia? \newline
+		\item ¿Cuál es la temperatura ambiente en el momento de tus mediciones? \newline
+		\item ¿Cuál es el valor obtenido al medir con el multímetro, el voltaje de salida en el sensor? \newline
+		\item ¿Cuál es el valor obtenido al medir con el multímetro, el voltaje de salida en el primer amplificador? \newline
+		\item ¿Cuál es el valor obtenido al medir con el multímetro, el voltaje de salida en el segundo amplificador? \newline
+		\item ¿Qué pasa si acercas una fuente de calor al sensor?
 	\end{enumerate}
 
 	Integrantes del equipo: \\[0.2cm]
