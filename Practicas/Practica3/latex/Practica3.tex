@@ -57,6 +57,8 @@
 
 		El problema es que la resistencia no es una señal que podamos medir facilmente, de hecho cuando la medimos con el multimetro, este tiene que aplicar un voltaje de prueba para saber, a traves de un calculo, la resistencia y justo esto es lo que haremos.
 
+%----------------------------------------------------------------------------------------
+
 	\subsection{Acondicionamiento}
 
 		En esta ocasión no queremos una señal analógica como salida de nuestro sistema, si no una señal que nos diga simplemente si hay luz o no, por lo que no podemos simplemente amplificar la señal que mediremos en nuestra resistencia.
@@ -80,6 +82,8 @@
 		\end{center}
 
 		¿Mas aun, que tan oscuro significa que no hay luz? ¿Si alguien saca su celular e ilumina ligeramente el cuarto debemos considerar que hay luz? Tenemos que considerar una referencia.
+
+%----------------------------------------------------------------------------------------
 
 		\subsubsection{Comparadores}
 
@@ -133,7 +137,7 @@
 				\end{tikzpicture}
 			\end{center}
 
-			Podemos ver pues, que nuestra salida sera un $V_+$ o $0 V$, dependiendo de la entrada.
+			Por ahora no te preocupes por el $\infty$, tan solo hay que notar que nuestra salida tendrá un valor de $V_+$ o $0 V$, dependiendo de la entrada.
 
 			Recuerda que dependiendo del OPAMP que uses, las terminales de tu circuito integrado serán diferentes, por lo que es absolutamente necesario que tengas el datasheet de tu OPAMP a la mano.
 
@@ -182,8 +186,9 @@
 \section{Desarrollo}
 	
 	\begin{enumerate}
-		\item Diseña un amplificador con la ganancia necesaria para que la salida de nuestro sensor, sea normalizada a un rango de $OV$ a $24V$.
-		\item Diseña un amplificador que tenga una ganancia de $-1$ y acopla la salida del amplificador anterior a la entrada de este, para que la señal sea positiva.
+		\item Diseña un circuito para medir el voltaje que pasa por la fotoresistencia en serie con otra resistencia (como en la práctica 1, con el LED).
+		\item Diseña un circuito para dar un voltaje de referencia al comparador.
+		\item Implementa el circuito del OPAMP configurado como comparador.
 		\item Realiza las mediciones requeridas en la hoja de anotaciones.
 	\end{enumerate}
 
@@ -204,15 +209,12 @@
 \section{Hoja de Anotaciones}
 	
 	\begin{enumerate}
-		\item ¿Cuál es la ganancia necesaria para normalizar nuestra señal a la requerida? \newline
-		\item ¿Cuál es el voltaje de alimentación que necesita el amplificador? \newline
-		\item ¿Cuál es el valor de $R_f$ que necesitas para obtener esa ganancia? \newline
-		\item ¿Cuál es el valor de $R_I$ que necesitas para obtener esa ganancia? \newline
-		\item ¿Cuál es la temperatura ambiente en el momento de tus mediciones? \newline
-		\item ¿Cuál es el valor obtenido al medir con el multímetro, el voltaje de salida en el sensor? \newline
-		\item ¿Cuál es el valor obtenido al medir con el multímetro, el voltaje de salida en el primer amplificador? \newline
-		\item ¿Cuál es el valor obtenido al medir con el multímetro, el voltaje de salida en el segundo amplificador? \newline
-		\item ¿Qué pasa si acercas una fuente de calor al sensor? \newline
+		\item ¿Cual es el valor del voltaje medido en la fotoresistencia cuando hay luz sobre el? \newline
+		\item ¿Cual es el valor del voltaje medido en la fotoresistencia cuando no hay luz sobre el? \newline
+		\item ¿Cual es el valor del voltaje medido en la fotoresistencia cuando esta completamente cubierto? \newline
+		\item ¿Que valor elegirás como $V_{ref}$? \newline
+		\item ¿Que valores de resistencia elegirás para que el divisor de voltaje te de $V_{ref}$? \newline
+		\item Dibuja el diagrama de todo tu sistema. \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline
 	\end{enumerate}
 
 	Integrantes del equipo: \\[0.2cm]
