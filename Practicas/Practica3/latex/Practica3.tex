@@ -17,13 +17,13 @@
 	\end{figure}
 	\textsc{Instrumentación y Control} \\ [25pt]
 	\horrule{0.5pt} \\[0.4cm] % Linea horizontal delgada
-	\huge Práctica 2 - Medición de variables físicas \\ % Titulo de la práctica
+	\huge Práctica 3 - Medición de variables físicas II \\ % Titulo de la práctica
 	\horrule{2pt} \\[0.5cm] % Linea horizontal mas gruesa
 }
 
 \author{Roberto Cadena Vega} % Nombre del profesor
 
-\date{\normalsize 27 de enero de 2014} % Fecha de la práctica
+\date{\normalsize 20 de febrero de 2014} % Fecha de la práctica
 
 %----------------------------------------------------------------------------------------
 %	EMPIEZA EL DOCUMENTO
@@ -39,7 +39,7 @@
 
 \section{Objetivos}
 
-	Implementar un sistema eléctrico simple, que sea capaz de medir la temperatura.
+	Implementar un sistema eléctrico simple, que sea capaz de medir la intensidad luminosa.
 
 %----------------------------------------------------------------------------------------
 %	CONOCIMIENTOS PREVIOS
@@ -49,23 +49,17 @@
 
 %----------------------------------------------------------------------------------------
 
-	\subsection{Sensores}
+	\subsection{Transductores}
 
-		Dentro de nuestra materia tenemos distintas tipos de variables que tenemos que controlar para que el proceso se lleve adecuadamente, por lo que necesitamos primero que nada medirlas.
+		El dia de hoy usaremos un sensor de fotones (es decir, de luz). Estrictamente hablando, este es un transductor solamente, pero podemos utilizarlo para medir una variable física simplemente.
 
-		Los sensores nos ayudarán a hacer esto, pero primero tenemos que aprender a usarlos.
+		La fotoresistencia que utilizaremos es basicamente una resistencia, que varía su valor, dependiendo de la intensidad luminosa. Por lo general las venden en valores como $1 k \Omega$ o $10 k \Omega$, y esto quiere decir que variarán desde $0 \Omega$, hasta el valor nominal.
 
-		El sensor que utilizaremos en esta práctica es el LM35, por lo que tendrán que descargar su datasheet, pero tal vez te preguntes que es un datasheet... Bien, pues todos los elementos electrónicos tienen hojas de especificaciones en los que viene toda la información relevante para implementar su uso en un sistema eléctrico.
-
-		Pues lo primero que tienes que hacer es descargar de internet el datasheet de nuestro sensor, una simple búsqueda en Google de "datasheet LM35", te dará como resultado un archivo en formato PDF que puedes descargar e imprimir, para su uso en la práctica.
-
-		Una vez que tengamos nuestro datasheet, lo que tienes que buscar es el voltaje necesario para alimentar nuestro sensor (en caso de que sea necesario). Otro valor importante es la señal que nos regresará el sensor. Otros factores importantes son el tiempo de respuesta, la resistividad interna del elemento, etc., sin embargo, no serán de utilidad en esta práctica.
+		El problema es que la resistencia no es una señal que podamos medir facilmente, de hecho cuando la medimos con el multimetro, este tiene que aplicar un voltaje de prueba para saber, a traves de un calculo, la resistencia y justo esto es lo que haremos.
 
 	\subsection{Acondicionamiento}
 
-		Como te habrás dado cuenta en tu datasheet, el voltaje que nos entrega como salida el LM35 es de $0 V$ a $5 V$ si tomamos en cuenta que el rango de temperaturas que queremos medir es de $0 ^oC$ a $50 ^oC$, pero si quisiéramos meter esto en un sistema industrial, normalmente tendríamos que normalizar este rango a $0 V$ a $24 V$.
-
-		¿Cuál sería el número por el que tenemos que multiplicar, para que la señal del LM35 se convierta a la que queremos? Cuando hablamos de señales que tenemos que acondicionar, a este número le llamamos Ganancia.
+		En esta ocasión no queremos una señal analógica como salida de nuestro sistema, si no una señal que nos diga simplemente si hay luz o no, por lo que no podemos simplemente amplificar la señal que mediremos en nuestra resistencia.
 
 		\begin{center}
 			\tikzstyle{input} = [coordinate]
@@ -73,43 +67,46 @@
 			\tikzstyle{block} = [draw, rectangle, minimum height=3em, minimum width=6em]
 			\tikzstyle{init} = [pin edge={to-, thin, black}]
 
-			\begin{tikzpicture}[auto, node distance=3cm, >=latex']
+			\begin{tikzpicture}[auto, node distance=4cm, >=latex']
 				\node [input, name=entrada] {};
 				\node [block, right of=entrada] (sensor) {Señal};
-				\node [block, right of=sensor] (amplificador) {Ganancia};
-				\node [output, right of=amplificador] (salida) {};
+				\node [block, right of=sensor] (acondicionador) {Acondicionamiento};
+				\node [output, right of=acondicionador] (salida) {};
 
 				\draw [->] (entrada) -- node[name=x] {$x$} (sensor);
-				\draw [->] (sensor) -- node[name=x] {$u$} (amplificador);
-				\draw [->] (amplificador) -- node[name=y] {$y$} (salida);
+				\draw [->] (sensor) -- node[name=x] {$u$} (acondicionador);
+				\draw [->] (acondicionador) -- node[name=y] {$y$} (salida);
 			\end{tikzpicture}
 		\end{center}
 
-		Esta ganancia la vamos a obtener con un sistema eléctrico conocido como amplificador.
+		¿Mas aun, que tan oscuro significa que no hay luz? ¿Si alguien saca su celular e ilumina ligeramente el cuarto debemos considerar que hay luz? Tenemos que considerar una referencia.
 
-		\subsubsection{Amplificador}
+		\subsubsection{Comparadores}
 
-			Los amplificadores están compuestos de circuitos integrados llamados Amplificadores Operacionales (u OPAMP's para los cuates), resistencias y cables, cosas que ya sabemos usar.
-
-			El diagrama para un amplificador inversor es el siguiente:
+			Los OPAMP's que usamos en la práctica anterior tambien pueden hacer una comparación entre dos señales (de hecho, asi es como logran amplificar una señal, pero por ahora no entraremos en detalle con eso), por lo que ahora revisaremos como se puede configurar un OPAMP para que funcione como comparador.
 
 			\begin{center}
 				\begin{circuitikz} \draw
 					(0,0) node[op amp](opamp){}
-					(opamp.+) to [R, l=$R_I$] (-1.2, -2.5) node[ground] {}
-					(opamp.-) to [short, *-] (-2, 0.5) to [R, l=$R_I$] (-4, 0.5) to [short, -o] (-4, 0.5) node[left] {$V_I$}
-					(opamp.-) to [short, *-] (-1.2, 2) to [R, l=$R_f$] (1.2, 2)
-					(opamp.out) to [short, *-o] (2, 0) node[right] {$V_O$}
-					(opamp.out) to [short, *-] (1.2, 2)
+					(opamp.+) to [short, -*] (-1.2, -0.5) node[below] {$V_i$}
+					(opamp.-) to [short, -o] (-1.2, 0.5) node[left] {$V_{ref}$}
+					(opamp.out) to [short, -o] (1.5, 0) node[right] {$V_o$}
 					(opamp.down) node[ground] {}
 					(opamp.up) to [short, -o] (-0.08, 1) node[above] {$V_+$}
+					(-1.2, -0.5) to [short, *-] (-3, -0.5)
+					(-3, -0.5) to [vR, l=$R_F$] (-3, 2.5) node[above] {$5 V$}
+					(-3, -0.5) to [R, l=$R_1$] (-3, -3.5) node[ground] {} 
 				;\end{circuitikz}	
 			\end{center}
 			
 			y la ecuación que rige su comportamiento es:
 
 				\begin{equation}
-					V_O = - \frac{R_f}{R_I} V_I
+					V_o = \left\{
+					\begin{array}{r l}	
+						V_i < V_{ref} & 0 V \\
+						V_i > V_{ref} & V_+ 
+					\end{array} \right.
 				\end{equation}
 
 			eso quiere decir que el diagrama queda como sigue:
@@ -118,43 +115,25 @@
 				\tikzstyle{input} = [coordinate]
 				\tikzstyle{output} = [coordinate]
 				\tikzstyle{block} = [draw, rectangle, minimum height=3em, minimum width=6em]
+				\tikzstyle{sum} = [draw, circle, node distance=3cm]
 				\tikzstyle{init} = [pin edge={to-, thin, black}]
+				\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
 
 				\begin{tikzpicture}[auto, node distance=3cm, >=latex']
 					\node [input, name=entrada] {};
 					\node [block, right of=entrada] (sensor) {Señal};
-					\node [block, right of=sensor] (amplificador) {$ - \frac{R_f}{R_I}$};
+					\node [sum, right of=sensor, pin={[pinstyle]above:$- V_{ref}$}] (suma) {};
+					\node [block, right of=suma] (amplificador) {$\infty$};
 					\node [output, right of=amplificador] (salida) {};
 
-					\draw [->] (entrada) -- node[name=x] {$x$} (sensor);
-					\draw [->] (sensor) -- node[name=x] {$u$} (amplificador);
-					\draw [->] (amplificador) -- node[name=y] {$y$} (salida);
+					\draw [->] (entrada) -- node {$x$} (sensor);
+					\draw [->] (sensor) -- node {$u$} node[pos=0.99] {$+$} (suma);
+					\draw [->] (suma) -- node {$v$} (amplificador);
+					\draw [->] (amplificador) -- node {$y$} (salida);
 				\end{tikzpicture}
 			\end{center}
 
-			Al ver esto, notamos que tan solo tenemos que calcular la ganancia, y buscar 2 valores de resistencias que nos dé el valor de ganancia deseado.
-
-			Tan solo un detalle, el voltaje que sale de este bloque va a ser negativo, pero podemos agregar otro bloque con una ganancia $-1$.
-
-			\begin{center}
-				\tikzstyle{input} = [coordinate]
-				\tikzstyle{output} = [coordinate]
-				\tikzstyle{block} = [draw, rectangle, minimum height=3em, minimum width=6em]
-				\tikzstyle{init} = [pin edge={to-, thin, black}]
-
-				\begin{tikzpicture}[auto, node distance=3cm, >=latex']
-					\node [input, name=entrada] {};
-					\node [block, right of=entrada] (sensor) {Señal};
-					\node [block, right of=sensor] (amplificador) {$ - \frac{R_f}{R_I}$};
-					\node [block, right of=amplificador] (inversor) {$ - 1$};
-					\node [output, right of=inversor] (salida) {};
-
-					\draw [->] (entrada) -- node[name=x] {$x$} (sensor);
-					\draw [->] (sensor) -- node[name=x] {$u$} (amplificador);
-					\draw [->] (amplificador) -- node[name=x] {$v$} (inversor);
-					\draw [->] (inversor) -- node[name=y] {$y$} (salida);
-				\end{tikzpicture}
-			\end{center}
+			Podemos ver pues, que nuestra salida sera un $V_+$ o $0 V$, dependiendo de la entrada.
 
 			Recuerda que dependiendo del OPAMP que uses, las terminales de tu circuito integrado serán diferentes, por lo que es absolutamente necesario que tengas el datasheet de tu OPAMP a la mano.
 
@@ -182,9 +161,9 @@
 
 	\begin{itemize}
 		\item Protoboard
-		\item LM35
+		\item Fotoresistencia de $1k \Omega$ o $10 k \Omega$ o cualquier otra que consigas
 		\item LM741 o LM358
-		\item Resistencias
+		\item Resistencias (considera una resistencia del mismo valor que la fotoresistencia)
 		\begin{itemize}
 			\item $180 \Omega$
 			\item $220 \Omega$
