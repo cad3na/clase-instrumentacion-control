@@ -51,17 +51,17 @@
 
 	\subsection{Transductores}
 
-		El dia de hoy usaremos un sensor de fotones (es decir, de luz). Estrictamente hablando, este es un transductor solamente, pero podemos utilizarlo para medir una variable física simplemente.
+		El día de hoy usaremos un sensor de fotones (es decir, de luz). Estrictamente hablando, este es un transductor solamente, pero podemos utilizarlo para medir una variable física simplemente.
 
-		La fotoresistencia que utilizaremos es basicamente una resistencia, que varía su valor, dependiendo de la intensidad luminosa. Por lo general las venden en valores como $1 k \Omega$ o $10 k \Omega$, y esto quiere decir que variarán desde $0 \Omega$, hasta el valor nominal.
+		La fotorresistencia que utilizaremos es básicamente una resistencia, que varía su valor dependiendo de la intensidad luminosa. Por lo general las venden en valores como $1 k \Omega$ o $10 k \Omega$, y esto quiere decir que variarán desde $0 \Omega$, hasta el valor nominal.
 
-		El problema es que la resistencia no es una señal que podamos medir facilmente, de hecho cuando la medimos con el multimetro, este tiene que aplicar un voltaje de prueba para saber, a traves de un calculo, la resistencia y justo esto es lo que haremos.
+		El problema es que la resistencia no es una señal que podamos medir fácilmente, de hecho cuando la medimos con el multímetro, este tiene que aplicar un voltaje de prueba para saber, a través de un cálculo, la resistencia y justo esto es lo que haremos.
 
 %----------------------------------------------------------------------------------------
 
 	\subsection{Acondicionamiento}
 
-		En esta ocasión no queremos una señal analógica como salida de nuestro sistema, si no una señal que nos diga simplemente si hay luz o no, por lo que no podemos simplemente amplificar la señal que mediremos en nuestra resistencia.
+		En esta ocasión no queremos una señal analógica como salida de nuestro sistema, sino una señal que nos diga simplemente si hay luz o no, por lo que no podemos simplemente amplificar la señal que mediremos en nuestra resistencia.
 
 		\begin{center}
 			\tikzstyle{input} = [coordinate]
@@ -81,13 +81,13 @@
 			\end{tikzpicture}
 		\end{center}
 
-		¿Mas aun, que tan oscuro significa que no hay luz? ¿Si alguien saca su celular e ilumina ligeramente el cuarto debemos considerar que hay luz? Tenemos que considerar una referencia.
+		¿Más aún, qué tan oscuro significa que no hay luz? ¿Si alguien saca su celular e ilumina ligeramente el cuarto debemos considerar que hay luz? Tenemos que considerar una referencia.
 
 %----------------------------------------------------------------------------------------
 
 		\subsubsection{Comparadores}
 
-			Los OPAMP's que usamos en la práctica anterior tambien pueden hacer una comparación entre dos señales (de hecho, asi es como logran amplificar una señal, pero por ahora no entraremos en detalle con eso), por lo que ahora revisaremos como se puede configurar un OPAMP para que funcione como comparador.
+			Los OPAMP's que usamos en la práctica anterior tambien pueden hacer una comparación entre dos señales (de hecho, así es como logran amplificar una señal, pero por ahora no entraremos en detalle con eso), por lo que ahora revisaremos cómo se puede configurar un OPAMP para que funcione como comparador.
 
 			\begin{center}
 				\begin{circuitikz} \draw
@@ -108,8 +108,8 @@
 				\begin{equation}
 					V_o = \left\{
 					\begin{array}{r l}	
-						V_i < V_{ref} & 0 V \\
-						V_i > V_{ref} & V_+ 
+						0 V & V_i < V_{ref}  \\
+						V_+ & V_i > V_{ref}  
 					\end{array} \right.
 				\end{equation}
 
@@ -165,9 +165,9 @@
 
 	\begin{itemize}
 		\item Protoboard
-		\item Fotoresistencia de $1k \Omega$ o $10 k \Omega$ o cualquier otra que consigas
+		\item Fotorresistencia de $1k \Omega$ o $10 k \Omega$ o cualquier otra que consigas
 		\item LM741 o LM358
-		\item Resistencias (considera una resistencia del mismo valor que la fotoresistencia)
+		\item Resistencias (considera una resistencia del mismo valor que la fotorresistencia)
 		\begin{itemize}
 			\item $180 \Omega$
 			\item $220 \Omega$
@@ -186,7 +186,7 @@
 \section{Desarrollo}
 	
 	\begin{enumerate}
-		\item Diseña un circuito para medir el voltaje que pasa por la fotoresistencia en serie con otra resistencia (como en la práctica 1, con el LED).
+		\item Diseña un circuito para medir el voltaje que pasa por la fotorresistencia en serie con otra resistencia (como en la práctica 1, con el LED).
 		\item Diseña un circuito para dar un voltaje de referencia al comparador.
 		\item Implementa el circuito del OPAMP configurado como comparador.
 		\item Realiza las mediciones requeridas en la hoja de anotaciones.
@@ -209,11 +209,11 @@
 \section{Hoja de Anotaciones}
 	
 	\begin{enumerate}
-		\item ¿Cual es el valor del voltaje medido en la fotoresistencia cuando hay luz sobre el? \newline
-		\item ¿Cual es el valor del voltaje medido en la fotoresistencia cuando no hay luz sobre el? \newline
-		\item ¿Cual es el valor del voltaje medido en la fotoresistencia cuando esta completamente cubierto? \newline
-		\item ¿Que valor elegirás como $V_{ref}$? \newline
-		\item ¿Que valores de resistencia elegirás para que el divisor de voltaje te de $V_{ref}$? \newline
+		\item ¿Cuál es el valor del voltaje medido en la fotorresistencia cuando hay luz sobre ella? \newline
+		\item ¿Cuál es el valor del voltaje medido en la fotorresistencia cuando no hay luz sobre ella? \newline
+		\item ¿Cuál es el valor del voltaje medido en la fotorresistencia cuando está completamente cubierta? \newline
+		\item ¿Qué valor elegirás como $V_{ref}$? \newline
+		\item ¿Qué valores de resistencia elegirás para que el divisor de voltaje te dé $V_{ref}$? \newline
 		\item Dibuja el diagrama de todo tu sistema. \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline
 	\end{enumerate}
 
