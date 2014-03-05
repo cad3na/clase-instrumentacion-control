@@ -1,0 +1,261 @@
+%----------------------------------------------------------------------------------------
+%	PAQUETES Y OTRAS CONFIGURACIONES
+%----------------------------------------------------------------------------------------
+
+\input{../../style/practica.tex}
+
+%----------------------------------------------------------------------------------------
+%	TITULO
+%----------------------------------------------------------------------------------------
+
+\title{	
+	\normalfont \normalsize
+	\begin{figure}[h]
+		\begin{center}
+			\includegraphics[width=0.3\textwidth]{../../images/UNITEC.png} % La imagen esta incluida en el mismo directorio del código
+		\end{center}
+	\end{figure}
+	\textsc{Instrumentación y Control} \\ [25pt]
+	\horrule{0.5pt} \\[0.4cm] % Linea horizontal delgada
+	\huge Práctica 4 - Actuación I \\ % Titulo de la práctica
+	\horrule{2pt} \\[0.5cm] % Linea horizontal mas gruesa
+}
+
+\author{Roberto Cadena Vega} % Nombre del profesor
+
+\date{\normalsize 13 de marzo de 2014} % Fecha de la práctica
+
+%----------------------------------------------------------------------------------------
+%	EMPIEZA EL DOCUMENTO
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle % Imprime el título
+
+%----------------------------------------------------------------------------------------
+%	OBJETIVOS
+%----------------------------------------------------------------------------------------
+
+\section{Objetivos}
+
+	Implementar un sistema eléctrico simple, que sea capaz de controlar la velocidad de un motor de corriente directa.
+
+%----------------------------------------------------------------------------------------
+%	CONOCIMIENTOS PREVIOS
+%----------------------------------------------------------------------------------------
+
+\section{Conocimientos Previos}
+
+%----------------------------------------------------------------------------------------
+
+	\subsection{Control}
+
+		Le llamaremos control, a todas las acciones que podemos tomar, para modificar las variables que queremos regular en nuestro sistema.
+
+		Comunmente el control, lo aplicamos en las señales eléctricas, ya que son el tipo de señales que nos da la mayoria de nuestros sensores, y es el tipo de señal que toman como entrada los elementos de actuación. Digamos que es una manera comoda de manejar nuestras señales.
+
+%----------------------------------------------------------------------------------------
+
+	\subsection{Señal Eléctrica}
+
+		Una señal eléctrica tiene varias caracteristicas importantes, de las cuales depende en gran medida la acción de salida. El voltaje aplicado es uno de los parametros mas importantes, mientras mas voltaje, mayor la velocidad con la que girará un motor, mayor el brillo de un LED, etc.
+
+		Otro de los parametros importantes es la corriente, y esta es la que completa la potencia de un elemento; es decir, que el voltaje $V$, por la corriente $I$ es igual a la potencia de un elemento eléctrico.
+
+		\begin{equation}
+			P = V I
+		\end{equation}
+
+		Y en general, obtenemos que la potencia de un elemento eléctrico es constante. Es decir, que mientras mas voltaje le metamos, menos corriente consumirá, y mientras menos voltaje le demos, mas corriente consumirá. Por lo general, no es buena idea dejar que los elementos eléctricos tomen mas corriente de la que deben, ya que como el voltaje suminsitrado es constante, si empieza a consumir mas corriente, sube la potencia de trabajo del elemento, y se quema.
+
+		Pues resulta que tenemos que controlar el voltaje dado a un motor eléctrico ¿Como podemos variar el voltaje suministrado a un elemento eléctrico?
+
+		La manera mas facil de hacerlo, es lo que realizaste para dar un voltaje de referencia en la práctica pasada, eso se llama divisor de voltaje.
+
+%----------------------------------------------------------------------------------------
+
+	\subsection{Divisor de voltaje}
+
+		Cuando tenemos dos resistencias en serie conectadas a una diferencia de potencial eléctrico (voltaje), decimos que estan dividiendo el voltaje, ya que cuando tomamos en cuenta la proporción que guardan, podemos decir el voltaje que se puede medir en el nodo ubicado entre las dos resistencias.
+
+		\begin{center}
+			\begin{circuitikz}[american voltages]
+				\draw (0, 0) to [V=$5 V$] (0, 2) to [R=$R_1$] (2, 2) to [R=$R_2$] (2, 0) -- (0, 0);
+			\end{circuitikz}
+		\end{center}
+
+		Como ya te habrás dado cuenta en la práctica pasada, este circuito es equivalente a:
+
+		\begin{center}
+			\begin{circuitikz}
+				\draw
+				(0,2) node[above]{$5 V$} to[R=$R_1$, o-o] (0, 0) to[R=$R_2$,o-o] (0,-2) node[ground]{}
+				(0,0) to[short, -o] (1,0) node[right] {$V_ref$}
+				;
+			\end{circuitikz}
+		\end{center}
+
+		Si analizamos por un momento su comportamiento, podremos deducir el $V_{ref}$ ¿Que hay del voltaje total? ¿Podemos calcularlo?
+
+		\begin{equation}
+			V_T = I_T R_T
+		\end{equation}
+
+		siendo $R_T = R_1 + R_2$. Pero sabemos que la corriente total es la misma que pasa por todo el circuito (esta en serie!), por lo que podemos despejarla y usarla como una constante mas.
+
+		\begin{equation}
+			I_T = \frac{V_T}{R_T} = I_1 = I_2
+		\end{equation}
+
+		Si ahora nos fijamos en la resistencia $R_2$ solamente ¿Cual sera el voltaje $V_2$ en esta resistencia?
+
+		\begin{equation}
+			V_2 = I_2 R_2
+		\end{equation}
+
+		pero sabemos que $I_2 = \frac{V_T}{R_1 + R_2}$, por lo que podemos expresarla asi:
+
+		\begin{equation}
+			V_2 = \frac{V_T}{R_1 + R_2} R_2 = \frac{R_2}{R_1 + R_2} V_T 
+		\end{equation}
+
+%----------------------------------------------------------------------------------------
+
+	\subsection{Motores}
+		
+		Los motores eléctricos de CD pueden llegar a tomar una corriente de $\frac{1}{2} A$, sin tener temor a que se queme, aunque si pudiera quemar otros elementos eléctricos.
+
+		Calculemos la potencia del motor si le suministramos $5 V$ y toma una corriente de $\frac{1}{2} A$.
+
+		\begin{equation}
+			P_{motor} = \left(5 V \right) \left( \frac{1}{2} A \right) = 2.5 W
+		\end{equation}
+
+		Pero si calculamos la potencia que debe tener una resistencia conectada en serie con el motor.
+
+		\begin{equation}
+			P_{resistencia} = \left( algo V \right) \left( \frac{1}{2} A \right)
+		\end{equation}
+
+		Si sabemos que la resistencia\footnote{Un motor no tiene resistencia, tiene impedancia, pero por el momento puedes pensar en la impedancia, como la resistencia de un motor.} de un motor es de alrededor de los $10 \Omega$, y nuestra resistencia es de $100 \Omega$, podemos deducir que el voltaje que recibirá la resistencia es:
+
+		\begin{equation}
+			V_{resistencia} = \frac{100 \Omega}{100 \Omega + 10 \Omega} 5 V = 4.54 V 
+		\end{equation}
+
+		Eso quiere decir, que por muy pequeña que sea nuestra resistencia, el motor tiene una resistencia aun menor, y por lo tanto tendra el menor voltaje en el, y la resistencia tendrá el mayor voltaje, y la misma corriente:
+
+		\begin{equation}
+			P_{resistencia} = V_{resistencia} I_{resistencia} = \left( 4.54 V \right) \left( \frac{1}{2} A \right) = 2.27 W
+		\end{equation}
+
+		Y para los que recuerden el valor de potencia de las resistencias comerciales, se venden en $\frac{1}{4} W$ y $\frac{1}{2} W$, lo que quiere decir que cualquier resistencia que compremos, terminará quemada si la conectamos a un motor.
+
+%----------------------------------------------------------------------------------------
+
+	\subsection{LED's}
+
+		Los LED's son elementos eléctricos con una resistencia\footnote{Tampoco es una resistencia, como pudimos confirmar en la práctica 1, pero sabemos que gasta energía, y por lo tanto, al estar conectado al circuito tiene propiedades parecidas a las de una resistencia} muy parecida a la de las resistencias comerciales, y con una potencia de trabajo muy baja, por lo que son ideales para controlarlos a traves de resistencias.
+
+		Podemos hacer un divisor de voltaje, que alimente un LED y por lo tanto varie el voltaje suministrado al LED; cambiando asi la intensidad luminosa del LED.
+
+		\begin{center}
+			\begin{circuitikz}
+				\draw
+				(0,2) node[above]{$5 V$} to[R=$R_1$, o-o] (0, 0) to[R=$R_2$,o-o] (0,-2) node[ground]{}
+				(0,0) to[LED] (2,0)
+				;
+			\end{circuitikz}
+		\end{center}
+
+
+%----------------------------------------------------------------------------------------
+%	EQUIPO
+%----------------------------------------------------------------------------------------
+
+\section{Equipo}
+
+	El siguiente equipo será proporcionado por el laboratorio, siempre y cuando lleguen en los primeros 15 minutos de la práctica, y hagan el vale conteniendo el siguiente equipo (exceptuando las pinzas).
+
+	\begin{itemize}
+		\item 1 Fuente de Alimentación
+		\item 1 Multímetro
+		\item 1 Cable de alimentación
+		\item 2 Cables banana - caimán
+		\item Pinzas
+	\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%	MATERIALES
+%----------------------------------------------------------------------------------------
+
+\section{Materiales}
+
+	\begin{itemize}
+		\item Protoboard
+		\item LM741 o LM358
+		\item Resistencias (considera una resistencia del mismo valor que la fotorresistencia)
+		\begin{itemize}
+			\item $180 \Omega$
+			\item $220 \Omega$
+			\item $330 \Omega$
+			\item $1 k\Omega$
+			\item $3.3 k\Omega$
+			\item $10 k\Omega$
+		\end{itemize}
+		\item Cables
+	\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%	DESARROLLO
+%----------------------------------------------------------------------------------------
+
+\section{Desarrollo}
+	
+	\begin{enumerate}
+		\item Diseña un circuito para medir el voltaje que pasa por la fotorresistencia en serie con otra resistencia (como en la práctica 1, con el LED).
+		\item Diseña un circuito para dar un voltaje de referencia al comparador.
+		\item Implementa el circuito del OPAMP configurado como comparador.
+		\item Realiza las mediciones requeridas en la hoja de anotaciones.
+	\end{enumerate}
+
+
+%----------------------------------------------------------------------------------------
+%	CONCLUSIONES
+%----------------------------------------------------------------------------------------
+
+\section{Conclusiones}
+
+	El alumno deberá describir sus conclusiones al final de su reporte de práctica.
+    
+%----------------------------------------------------------------------------------------
+%	HOJA DE ANOTACIONES
+%----------------------------------------------------------------------------------------
+
+\clearpage
+\section{Hoja de Anotaciones}
+	
+	\begin{enumerate}
+		\item ¿Cuál es el valor del voltaje medido en la fotorresistencia cuando hay luz sobre ella? \newline
+		\item ¿Cuál es el valor del voltaje medido en la fotorresistencia cuando no hay luz sobre ella? \newline
+		\item ¿Cuál es el valor del voltaje medido en la fotorresistencia cuando está completamente cubierta? \newline
+		\item ¿Qué valor elegirás como $V_{ref}$? \newline
+		\item ¿Qué valores de resistencia elegirás para que el divisor de voltaje te dé $V_{ref}$? \newline
+		\item Dibuja el diagrama de todo tu sistema. \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline
+	\end{enumerate}
+
+	Integrantes del equipo: \\[0.2cm]
+	\horrule{0.5pt} \\[0.2cm] % Linea horizontal delgada
+	\horrule{0.5pt} \\[0.2cm] % Linea horizontal delgada
+	\horrule{0.5pt} \\[0.2cm] % Linea horizontal delgada
+	\horrule{0.5pt} % Linea horizontal delgada	
+
+	Revisó: \\[0.2cm]
+	\horrule{0.5pt} \\% Linea horizontal delgada
+    
+%----------------------------------------------------------------------------------------
+%	FIN DEL DOCUMENTO
+%----------------------------------------------------------------------------------------
+
+\end{document}
