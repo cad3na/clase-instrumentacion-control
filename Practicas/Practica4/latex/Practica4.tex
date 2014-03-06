@@ -67,7 +67,7 @@
 			P = V I
 		\end{equation}
 
-		Y en general, obtenemos que la potencia de un elemento eléctrico es constante. Es decir, que mientras mas voltaje le metamos, menos corriente consumirá, y mientras menos voltaje le demos, mas corriente consumirá. Por lo general, no es buena idea dejar que los elementos eléctricos tomen mas corriente de la que deben, ya que como el voltaje suminsitrado es constante, si empieza a consumir mas corriente, sube la potencia de trabajo del elemento, y se quema.
+		Y en general, obtenemos que la potencia de un elemento eléctrico es constante. Es decir, que mientras mas voltaje le metamos, menos corriente consumirá, y mientras menos voltaje le demos, mas corriente consumirá. Por lo general, no es buena idea dejar que los elementos eléctricos tomen mas corriente de la que deben, ya que como el voltaje suminsitrado es constante, si empieza a consumir más corriente, sube la potencia de trabajo del elemento, y se quema.
 
 		Pues resulta que tenemos que controlar el voltaje dado a un motor eléctrico ¿Como podemos variar el voltaje suministrado a un elemento eléctrico?
 
@@ -120,6 +120,34 @@
 			V_2 = \frac{V_T}{R_1 + R_2} R_2 = \frac{R_2}{R_1 + R_2} V_T 
 		\end{equation}
 
+		Esta manera de controlar el voltaje no es la óptima para controlar elementos eléctricos como los motores, debido a la baja impedancia de los motores, y su alto consumo de corriente eléctrica. A continuación veremos una manera mas de controlar el voltaje.
+
+%----------------------------------------------------------------------------------------
+
+	\subsection{PWM}
+
+		Otra manera de controlar el voltaje suministrado a un elemento de actuación, es utilizar un PWM\footnote{Pulse Width Modulation}. Básicamente, lo que tratamos de hacer es apagar y prender rapidamente el elemento eléctrico a controlar, de manera que el voltaje que alcanze a ver el elemento eléctrico no sea completamente el que le suministremos, sino uno proporcional al tiempo en que lo dejamos prendido.
+
+		Veamos una gráfica:
+
+
+
+		Como puedes ver le estamos suministrando un pulso de $5 V$, pero no es constante, digamos que esta prendido el $50\%$ del tiempo. En dado caso, decimos que el $DC$\footnote{Duty Cycle} es de $50\%$, y la fórmula para el voltaje aparente en el elemento eléctrico conectado es:
+
+		\begin{equation}
+			V_{PWM} = V_{pico} \cdot DC
+		\end{equation}
+
+		Así pues, en nuestro ejemplo, el voltaje sería:
+
+		\begin{equation}
+			V_{PWM} = 5 V \cdot 0.50 = 2.5 V
+		\end{equation}
+
+		Este tipo de señal es cuadrada, y a parte del $DC$, tiene un parametro muy importante, la frecuencia $f$. Por lo general utilizamos $f$, que esten por encima de los $20 kHz$, debido a que el sistema eléctrico va a oscilar, y estas oscilaciones pudieran ser audibles, dependiendo de los elementos eléctrico involucrados, y el oido humano solo es capaz de oir frecuencias entre los $20 Hz$ y $20 kHz$. Sin embargo, tambien tenemos que considerar los tiempos de respuesta de los elementos eléctricos mas complejos, por lo que pudiera ser necesario utilizar una frecuencia menor.
+
+		Esta señal cuadrada puede ser generada por el generador de funciones, y debes estar atento para cuando se describa su funcionamiento en el momento de la práctica.
+
 %----------------------------------------------------------------------------------------
 
 	\subsection{Motores}
@@ -129,32 +157,32 @@
 		Calculemos la potencia del motor si le suministramos $5 V$ y toma una corriente de $\frac{1}{2} A$.
 
 		\begin{equation}
-			P_{motor} = \left(5 V \right) \left( \frac{1}{2} A \right) = 2.5 W
+			P_{M} = \left(5 V \right) \left( \frac{1}{2} A \right) = 2.5 W
 		\end{equation}
 
 		Pero si calculamos la potencia que debe tener una resistencia conectada en serie con el motor.
 
 		\begin{equation}
-			P_{resistencia} = \left( algo V \right) \left( \frac{1}{2} A \right)
+			P_{R} = \left( algo V \right) \left( \frac{1}{2} A \right)
 		\end{equation}
 
 		Si sabemos que la resistencia\footnote{Un motor no tiene resistencia, tiene impedancia, pero por el momento puedes pensar en la impedancia, como la resistencia de un motor.} de un motor es de alrededor de los $10 \Omega$, y nuestra resistencia es de $100 \Omega$, podemos deducir que el voltaje que recibirá la resistencia es:
 
 		\begin{equation}
-			V_{resistencia} = \frac{100 \Omega}{100 \Omega + 10 \Omega} 5 V = 4.54 V 
+			V_{R} = \frac{100 \Omega}{100 \Omega + 10 \Omega} 5 V = 4.54 V 
 		\end{equation}
 
 		Eso quiere decir, que por muy pequeña que sea nuestra resistencia, el motor tiene una resistencia aun menor, y por lo tanto tendra el menor voltaje en el, y la resistencia tendrá el mayor voltaje, y la misma corriente:
 
 		\begin{equation}
-			P_{resistencia} = V_{resistencia} I_{resistencia} = \left( 4.54 V \right) \left( \frac{1}{2} A \right) = 2.27 W
+			P_{R} = V_{R} I_{R} = \left( 4.54 V \right) \left( \frac{1}{2} A \right) = 2.27 W
 		\end{equation}
 
 		Y para los que recuerden el valor de potencia de las resistencias comerciales, se venden en $\frac{1}{4} W$ y $\frac{1}{2} W$, lo que quiere decir que cualquier resistencia que compremos, terminará quemada si la conectamos a un motor.
 
 %----------------------------------------------------------------------------------------
 
-	\subsection{LED's}
+	\subsection{LED}
 
 		Los LED's son elementos eléctricos con una resistencia\footnote{Tampoco es una resistencia, como pudimos confirmar en la práctica 1, pero sabemos que gasta energía, y por lo tanto, al estar conectado al circuito tiene propiedades parecidas a las de una resistencia} muy parecida a la de las resistencias comerciales, y con una potencia de trabajo muy baja, por lo que son ideales para controlarlos a traves de resistencias.
 
@@ -164,11 +192,30 @@
 			\begin{circuitikz}
 				\draw
 				(0,2) node[above]{$5 V$} to[R=$R_1$, o-o] (0, 0) to[R=$R_2$,o-o] (0,-2) node[ground]{}
-				(0,0) to[LED] (2,0)
+				(0,0) to[short] (1,0) to[led] (1,-2) node[ground]{}
 				;
 			\end{circuitikz}
 		\end{center}
 
+		Este divisor de voltaje es constante, debido a que las resistencias no se pueden variar, pero conocemos un elemento resistivo variable. El potenciometro.
+
+%----------------------------------------------------------------------------------------
+
+	\subsection{Potenciometro}
+		Un potenciometro es una resistencia que tiene una sonda a la que se le puede modificar su posición. Cuando se modifica su posición, puede dar una resistencia menor al maximo para el que esta construido, asi pues si el potenciometro esta marcado como de $10 k \Omega$, la mayor resistencia que te podrá dar es de $10 k \Omega$ y la menor de $0 \Omega$.
+
+		Basicamente un potenciometro es un divisor de voltaje, construido de tal manera que las dos resistencias dependan de la posición de la sonda.
+
+		\begin{center}
+			\begin{circuitikz}
+				\draw
+				(0,2) node[above]{} to[R=$R_1$, o-o] (0, 0) to[R=$R_2$,o-o] (0,-2) node[below]{}
+				(0,0) to[short, -o] (1,0) node[right] {}
+				;
+			\end{circuitikz}
+		\end{center}
+
+		Si el dial del potenciometro esta al 50\% del final, $R_1 = R_2$, si esta al 66.6\%, $R_1 = 2 R_2$, y asi.
 
 %----------------------------------------------------------------------------------------
 %	EQUIPO
@@ -180,9 +227,12 @@
 
 	\begin{itemize}
 		\item 1 Fuente de Alimentación
+		\item 1 Generador de Funciones
+		\item 1 Osciloscopio
 		\item 1 Multímetro
 		\item 1 Cable de alimentación
 		\item 2 Cables banana - caimán
+		\item 3 Cables coaxial - caimán
 		\item Pinzas
 	\end{itemize}
 
@@ -194,8 +244,8 @@
 
 	\begin{itemize}
 		\item Protoboard
-		\item LM741 o LM358
-		\item Resistencias (considera una resistencia del mismo valor que la fotorresistencia)
+		\item Potenciometro de $10 k \Omega$ (o cualquier otro que consigas)
+		\item Resistencias
 		\begin{itemize}
 			\item $180 \Omega$
 			\item $220 \Omega$
@@ -214,10 +264,9 @@
 \section{Desarrollo}
 	
 	\begin{enumerate}
-		\item Diseña un circuito para medir el voltaje que pasa por la fotorresistencia en serie con otra resistencia (como en la práctica 1, con el LED).
-		\item Diseña un circuito para dar un voltaje de referencia al comparador.
-		\item Implementa el circuito del OPAMP configurado como comparador.
-		\item Realiza las mediciones requeridas en la hoja de anotaciones.
+		\item Diseña divisores de voltaje para suministrar una alimentación de $2 V$, $2.5 V$ y $3 V$. Toma como voltaje de alimentación general $5 V$.
+		\item Diseña un divisor de voltaje variable con un potenciometro. Recuerda que al LED no le puedes suministrar mas de $3 V$ sin que se queme.
+		\item Diseña una señal de PWM que nos suministre voltajes aparentes de $2 V$, $2.5 V$ y $3 V$. Toma como voltaje pico $5 V$.
 	\end{enumerate}
 
 
@@ -237,12 +286,12 @@
 \section{Hoja de Anotaciones}
 	
 	\begin{enumerate}
-		\item ¿Cuál es el valor del voltaje medido en la fotorresistencia cuando hay luz sobre ella? \newline
+		\item ¿Cuales son los valores de las resistencias utilizadas para el divisor de voltaje de $2 V$? \newline
 		\item ¿Cuál es el valor del voltaje medido en la fotorresistencia cuando no hay luz sobre ella? \newline
 		\item ¿Cuál es el valor del voltaje medido en la fotorresistencia cuando está completamente cubierta? \newline
 		\item ¿Qué valor elegirás como $V_{ref}$? \newline
 		\item ¿Qué valores de resistencia elegirás para que el divisor de voltaje te dé $V_{ref}$? \newline
-		\item Dibuja el diagrama de todo tu sistema. \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline
+		\item Dibuja los diagramas para todos los sistemas que diseñaste. \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline
 	\end{enumerate}
 
 	Integrantes del equipo: \\[0.2cm]
