@@ -39,7 +39,7 @@
 
 \section{Objetivos}
 
-	Implementar un sistema eléctrico simple, que sea capaz de controlar la velocidad de un motor de corriente directa.
+	Implementar un sistema eléctrico simple, que sea capaz de controlar el brillo de un LED.
 
 %----------------------------------------------------------------------------------------
 %	CONOCIMIENTOS PREVIOS
@@ -126,13 +126,13 @@
 
 	\subsection{PWM}
 
-		Otra manera de controlar el voltaje suministrado a un elemento de actuación, es utilizar un PWM\footnote{Pulse Width Modulation}. Básicamente, lo que tratamos de hacer es apagar y prender rapidamente el elemento eléctrico a controlar, de manera que el voltaje que alcanze a ver el elemento eléctrico no sea completamente el que le suministremos, sino uno proporcional al tiempo en que lo dejamos prendido.
+		Otra manera de controlar el voltaje suministrado a un elemento de actuación, es utilizar un PWM\footnote{Pulse Width Modulation (Modulación por Ancho de Pulso).}. Básicamente, lo que tratamos de hacer es apagar y prender rapidamente el elemento eléctrico a controlar, de manera que el voltaje que alcanze a ver el elemento eléctrico no sea completamente el que le suministremos, sino uno proporcional al tiempo en que lo dejamos prendido.
 
 		Veamos una gráfica:
 
 
 
-		Como puedes ver le estamos suministrando un pulso de $5 V$, pero no es constante, digamos que esta prendido el $50\%$ del tiempo. En dado caso, decimos que el $DC$\footnote{Duty Cycle} es de $50\%$, y la fórmula para el voltaje aparente en el elemento eléctrico conectado es:
+		Como puedes ver le estamos suministrando un pulso de $5 V$, pero no es constante, digamos que esta prendido el $50\%$ del tiempo. En dado caso, decimos que el $DC$\footnote{Duty Cycle (Ciclo de Trabajo).} es de $50\%$, y la fórmula para el voltaje aparente en el elemento eléctrico conectado es:
 
 		\begin{equation}
 			V_{PWM} = V_{pico} \cdot DC
@@ -150,41 +150,9 @@
 
 %----------------------------------------------------------------------------------------
 
-	\subsection{Motores}
-		
-		Los motores eléctricos de CD pueden llegar a tomar una corriente de $\frac{1}{2} A$, sin tener temor a que se queme, aunque si pudiera quemar otros elementos eléctricos.
-
-		Calculemos la potencia del motor si le suministramos $5 V$ y toma una corriente de $\frac{1}{2} A$.
-
-		\begin{equation}
-			P_{M} = \left(5 V \right) \left( \frac{1}{2} A \right) = 2.5 W
-		\end{equation}
-
-		Pero si calculamos la potencia que debe tener una resistencia conectada en serie con el motor.
-
-		\begin{equation}
-			P_{R} = \left( algo V \right) \left( \frac{1}{2} A \right)
-		\end{equation}
-
-		Si sabemos que la resistencia\footnote{Un motor no tiene resistencia, tiene impedancia, pero por el momento puedes pensar en la impedancia, como la resistencia de un motor.} de un motor es de alrededor de los $10 \Omega$, y nuestra resistencia es de $100 \Omega$, podemos deducir que el voltaje que recibirá la resistencia es:
-
-		\begin{equation}
-			V_{R} = \frac{100 \Omega}{100 \Omega + 10 \Omega} 5 V = 4.54 V 
-		\end{equation}
-
-		Eso quiere decir, que por muy pequeña que sea nuestra resistencia, el motor tiene una resistencia aun menor, y por lo tanto tendra el menor voltaje en el, y la resistencia tendrá el mayor voltaje, y la misma corriente:
-
-		\begin{equation}
-			P_{R} = V_{R} I_{R} = \left( 4.54 V \right) \left( \frac{1}{2} A \right) = 2.27 W
-		\end{equation}
-
-		Y para los que recuerden el valor de potencia de las resistencias comerciales, se venden en $\frac{1}{4} W$ y $\frac{1}{2} W$, lo que quiere decir que cualquier resistencia que compremos, terminará quemada si la conectamos a un motor.
-
-%----------------------------------------------------------------------------------------
-
 	\subsection{LED}
 
-		Los LED's son elementos eléctricos con una resistencia\footnote{Tampoco es una resistencia, como pudimos confirmar en la práctica 1, pero sabemos que gasta energía, y por lo tanto, al estar conectado al circuito tiene propiedades parecidas a las de una resistencia} muy parecida a la de las resistencias comerciales, y con una potencia de trabajo muy baja, por lo que son ideales para controlarlos a traves de resistencias.
+		Los LED's son elementos eléctricos con una resistencia\footnote{Un LED no tiene resistencia, como pudimos confirmar en la práctica 1, pero sabemos que gasta energía, y por lo tanto, al estar conectado al circuito tiene propiedades parecidas a las de una resistencia.} muy parecida a la de las resistencias comerciales, y con una potencia de trabajo muy baja, por lo que son ideales para controlarlos a traves de resistencias.
 
 		Podemos hacer un divisor de voltaje, que alimente un LED y por lo tanto varie el voltaje suministrado al LED; cambiando asi la intensidad luminosa del LED.
 
@@ -244,6 +212,7 @@
 
 	\begin{itemize}
 		\item Protoboard
+		\item 1 LED
 		\item Potenciometro de $10 k \Omega$ (o cualquier otro que consigas)
 		\item Resistencias
 		\begin{itemize}
@@ -287,11 +256,13 @@
 	
 	\begin{enumerate}
 		\item ¿Cuales son los valores de las resistencias utilizadas para el divisor de voltaje de $2 V$? \newline
-		\item ¿Cuál es el valor del voltaje medido en la fotorresistencia cuando no hay luz sobre ella? \newline
-		\item ¿Cuál es el valor del voltaje medido en la fotorresistencia cuando está completamente cubierta? \newline
-		\item ¿Qué valor elegirás como $V_{ref}$? \newline
-		\item ¿Qué valores de resistencia elegirás para que el divisor de voltaje te dé $V_{ref}$? \newline
-		\item Dibuja los diagramas para todos los sistemas que diseñaste. \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline
+		\item ¿Cuales son los valores de las resistencias utilizadas para el divisor de voltaje de $2.5 V$? \newline
+		\item ¿Cuales son los valores de las resistencias utilizadas para el divisor de voltaje de $3 V$? \newline
+		\item Si quiero que el divisor de voltaje variable me suministre $2 V$ y esta conectado a una diferencia de potencial de $5 V$ ¿A que porcentaje de la posición final lo obtendré? \newline
+		\item Si quiero que el divisor de voltaje variable me suministre $2.5 V$ y esta conectado a una diferencia de potencial de $5 V$ ¿A que porcentaje de la posición final lo obtendré? \newline
+		\item Si quiero que el divisor de voltaje variable me suministre $3 V$ y esta conectado a una diferencia de potencial de $5 V$ ¿A que porcentaje de la posición final lo obtendré? \newline
+		\item Si tengo una señal PWM de $5 V$ de $V_{pico}$ ¿Cual será el $DC$ que me de un voltaje aparente de $2.2 V$?\newline
+		\item Dibuja los diagramas para todos los sistemas que diseñaste en la parte posterior de esta hoja (Divisores de voltaje fijos a $2 V$, $2.5 V$ y $3 V$, divisor de voltaje variable, conexion con generador de funciones). \newline \newline \newline \newline \newline
 	\end{enumerate}
 
 	Integrantes del equipo: \\[0.2cm]
