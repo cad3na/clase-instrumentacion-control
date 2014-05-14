@@ -1,4 +1,4 @@
 clase-instrumentacion-control
 =============================
 
-Repositorio con ejemplos vistos en clase de Instrumentación y Control.
+Repositorio con prácticas para la matería Instrumentación y Control.
