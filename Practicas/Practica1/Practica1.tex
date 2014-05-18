@@ -2,7 +2,7 @@
 %	PAQUETES Y OTRAS CONFIGURACIONES
 %----------------------------------------------------------------------------------------
 
-\input{../../style/practica.tex}
+\input{../style/practica.tex}
 
 %----------------------------------------------------------------------------------------
 %	TITULO
@@ -12,7 +12,7 @@
 	\normalfont \normalsize
 	\begin{figure}[h]
 		\begin{center}
-			\includegraphics[width=0.3\textwidth]{../../images/UNITEC.png} % La imagen esta incluida en el mismo directorio del código
+			\includegraphics[width=0.3\textwidth]{../images/UNITEC.png}
 		\end{center}
 	\end{figure}
 	\textsc{Instrumentación y Control} \\ [25pt]
@@ -57,13 +57,21 @@
 			V = I \cdot R
 		\end{equation}
 
-		Esta ecuación describe la relación entre la diferencia de potencial (la llamamos comúnmente voltaje) en un elemento eléctrico y la corriente eléctrica. El elemento que las relaciona es la resistencia. Lo que nos dice esta ley es que si tenemos un voltaje aplicado a una resistencia $V_1$, pasara a través de ella una corriente $I_1$ y tendrá el siguiente valor:
+		Donde:
+
+		\begin{description}
+			\item[$V$] Voltaje - Piensa en tus aparatos electrodomesticos; estos están diseñados para funcionar con un voltaje de $120 V$, sin embargo en el laboratorio por lo general trabajaremos con $5 V$.
+			\item[$I$] Corriente - Mientras que todos tus aparatos electrodomesticos trabajan con el mismo voltaje, la corriente que utiliza cada uno será diferente (esto es lo que determina que tanta energía gasta este aparato). Por ejemplo tu computadora puede gastar desde $2 A$ hasta $5 A$ mientras que un foco ahorrador puede utilizar $150 mA = 0.15 A$.
+			\item[$R$] Resistencia - Este parametro es lo que une al voltaje con la corriente. En el ejemplo anterior, podemos imaginar que la computadora tiene una resistencia mucho mayor al foco.
+		\end{description}
+
+		Lo que nos dice esta ley es que si tenemos un voltaje aplicado a una resistencia $V_1$, pasará a través de ella una corriente $I_1$ y tendrá el siguiente valor:
 
 		\begin{equation}
 			I_1 = \frac{V_1}{R_1}
 		\end{equation}
 
-		Recordemos también que si un circuito esta en serie, todos los elementos tienen la misma corriente, es decir:
+		Recordemos también que si un circuito está en serie, todos los elementos tienen la misma corriente, es decir:
 
 		\begin{equation}
 			I_1 = I_2 = I_3 = ... = I_T
@@ -83,6 +91,18 @@
 
 		\begin{equation}
 			V_1 = V_2 = V_3 = ... = V_T
+		\end{equation}
+
+		La resistencia es diferente, cuando tenemos un circuito en serie, podemos sumar los valores de todas las resistencias para calcular la resistencia total:
+
+		\begin{equation}
+			R_1 + R_2 + R_3 + ... = R_T
+		\end{equation}
+
+		Mientras que en paralelo las resistencias no se suman tan simplemente:
+
+		\begin{equation}
+			\frac{1}{\frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3} + ...} = R_T
 		\end{equation}
 
 		A lo largo de la práctica se te pedirá que midas y calcules diferentes valores relacionados con la Ley de Ohm. Asegúrate de analizar primero si el circuito esta en serie o en paralelo.
@@ -133,7 +153,7 @@
 
     \begin{figure}[h]
     	\begin{center}
-    		\includegraphics[width=0.3\textwidth]{LED-bateria-diagrama.png} % La imagen esta incluida en el mismo directorio del código
+    		\includegraphics[width=0.3\textwidth]{images/LED-bateria-diagrama.png}
     		\caption{Diagrama eléctrico del circuito a ensamblar.}
     		\label{dia:elecir}
     	\end{center}
@@ -145,7 +165,7 @@
 
     \begin{figure}[h]
     	\begin{center}
-    		\includegraphics[width=0.5\textwidth]{LED-bateria.png} % La imagen esta incluida en el mismo directorio del código
+    		\includegraphics[width=0.5\textwidth]{images/LED-bateria.png}
     		\caption{Diagrama del circuito a ensamblar.}
     		\label{dia:cir}
     	\end{center}
@@ -155,7 +175,7 @@
 
     \begin{figure}[h]
     	\begin{center}
-    		\includegraphics[width=0.25\textwidth]{protoboard.png} % La imagen esta incluida en el mismo directorio del código
+    		\includegraphics[width=0.25\textwidth]{images/protoboard.png}
     		\caption{Protoboard.}
     		\label{dia:proto}
     	\end{center}
@@ -179,6 +199,10 @@
 
 \section{Conclusiones}
 	El alumno deberá describir sus conclusiones al final de su reporte de práctica.
+
+\begin{center}
+	\huge \textthing
+\end{center}
     
 %----------------------------------------------------------------------------------------
 %	HOJA DE ANOTACIONES
