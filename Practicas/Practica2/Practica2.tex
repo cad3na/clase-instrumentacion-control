@@ -136,6 +136,20 @@
 
 			Esto se puede ver de la siguiente manera:
 
+			\begin{figure}[h]
+		    	\begin{center}
+		    		\includegraphics[width=0.75\textwidth]{images/LM35-LM358.png}
+		    		\caption{Diagrama eléctrico del circuito a ensamblar.}
+		    		\label{dia:elecir}
+		    	\end{center}
+		    \end{figure}
+
+		    En este ejemplo la ganancia del amplificador es de $11$, esto lo podemos comprobar con la formula:
+
+		    \begin{equation}
+		    	\frac{R_f}{R_I} + 1 = \frac{10 k \Omega}{1 k \Omega} + 1 = 11
+		    \end{equation}
+
 			Recuerda que dependiendo del OPAMP que uses, las terminales de tu circuito integrado serán diferentes, por lo que es absolutamente necesario que tengas el datasheet de tu OPAMP a la mano.
 
 %----------------------------------------------------------------------------------------
@@ -185,7 +199,6 @@
 	
 	\begin{enumerate}
 		\item Diseña un amplificador con la ganancia necesaria para que la salida de nuestro sensor, sea normalizada a un rango de $OV$ a $24V$.
-		\item Diseña un amplificador que tenga una ganancia de $-1$ y acopla la salida del amplificador anterior a la entrada de este, para que la señal sea positiva.
 		\item Realiza las mediciones requeridas en la hoja de anotaciones.
 	\end{enumerate}
 
@@ -211,8 +224,7 @@
 		\item ¿Cuál es el valor de $R_I$ que necesitas para obtener esa ganancia? \newline
 		\item ¿Cuál es la temperatura ambiente en el momento de tus mediciones? \newline
 		\item ¿Cuál es el valor obtenido al medir con el multímetro, el voltaje de salida en el sensor? \newline
-		\item ¿Cuál es el valor obtenido al medir con el multímetro, el voltaje de salida en el primer amplificador? \newline
-		\item ¿Cuál es el valor obtenido al medir con el multímetro, el voltaje de salida en el segundo amplificador? \newline
+		\item ¿Cuál es el valor obtenido al medir con el multímetro, el voltaje de salida en el amplificador? \newline
 		\item ¿Qué pasa si acercas una fuente de calor al sensor? \newline
 	\end{enumerate}
 
