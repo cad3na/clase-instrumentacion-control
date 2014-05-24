@@ -91,13 +91,13 @@
 
 			Los amplificadores están compuestos de circuitos integrados llamados Amplificadores Operacionales (u OPAMP's para los cuates), resistencias y cables, cosas que ya sabemos usar.
 
-			El diagrama para un amplificador inversor es el siguiente:
+			El diagrama para un amplificador no inversor es el siguiente:
 
 			\begin{center}
 				\begin{circuitikz} \draw
 					(0,0) node[op amp](opamp){}
-					(opamp.+) to [R, l=$R_I$] (-1.2, -2.5) node[ground] {}
-					(opamp.-) to [short, *-] (-2, 0.5) to [R, l=$R_I$] (-4, 0.5) to [short, -o] (-4, 0.5) node[left] {$V_I$}
+					(opamp.+) to [R, l=$R_I$] (-4, -0.5) to [short, -o] (-4, -0.5) node[left] {$V_I$}
+					(opamp.-) to [short, *-] (-2, 0.5) to [R, l=$R_I$] (-5, 0.5) node[ground] {}
 					(opamp.-) to [short, *-] (-1.2, 2) to [R, l=$R_f$] (1.2, 2)
 					(opamp.out) to [short, *-o] (2, 0) node[right] {$V_O$}
 					(opamp.out) to [short, *-] (1.2, 2)
@@ -109,7 +109,7 @@
 			y la ecuación que rige su comportamiento es:
 
 				\begin{equation}
-					V_O = - \frac{R_f}{R_I} V_I
+					V_O = \left(\frac{R_f}{R_I} + 1\right) V_I
 				\end{equation}
 
 			eso quiere decir que el diagrama queda como sigue:
@@ -123,7 +123,7 @@
 				\begin{tikzpicture}[auto, node distance=3cm, >=latex']
 					\node [input, name=entrada] {};
 					\node [block, right of=entrada] (sensor) {Señal};
-					\node [block, right of=sensor] (amplificador) {$ - \frac{R_f}{R_I}$};
+					\node [block, right of=sensor] (amplificador) {$ \frac{R_f}{R_I} + 1$};
 					\node [output, right of=amplificador] (salida) {};
 
 					\draw [->] (entrada) -- node[name=x] {$x$} (sensor);
@@ -134,27 +134,7 @@
 
 			Al ver esto, notamos que tan solo tenemos que calcular la ganancia, y buscar 2 valores de resistencias que nos dé el valor de ganancia deseado.
 
-			Tan solo un detalle, el voltaje que sale de este bloque va a ser negativo, pero podemos agregar otro bloque con una ganancia $-1$.
-
-			\begin{center}
-				\tikzstyle{input} = [coordinate]
-				\tikzstyle{output} = [coordinate]
-				\tikzstyle{block} = [draw, rectangle, minimum height=3em, minimum width=6em]
-				\tikzstyle{init} = [pin edge={to-, thin, black}]
-
-				\begin{tikzpicture}[auto, node distance=3cm, >=latex']
-					\node [input, name=entrada] {};
-					\node [block, right of=entrada] (sensor) {Señal};
-					\node [block, right of=sensor] (amplificador) {$ - \frac{R_f}{R_I}$};
-					\node [block, right of=amplificador] (inversor) {$ - 1$};
-					\node [output, right of=inversor] (salida) {};
-
-					\draw [->] (entrada) -- node[name=x] {$x$} (sensor);
-					\draw [->] (sensor) -- node[name=x] {$u$} (amplificador);
-					\draw [->] (amplificador) -- node[name=x] {$v$} (inversor);
-					\draw [->] (inversor) -- node[name=y] {$y$} (salida);
-				\end{tikzpicture}
-			\end{center}
+			Esto se puede ver de la siguiente manera:
 
 			Recuerda que dependiendo del OPAMP que uses, las terminales de tu circuito integrado serán diferentes, por lo que es absolutamente necesario que tengas el datasheet de tu OPAMP a la mano.
 
@@ -183,7 +163,7 @@
 	\begin{itemize}
 		\item Protoboard
 		\item LM35
-		\item LM741 o LM358
+		\item LM358
 		\item Resistencias
 		\begin{itemize}
 			\item $180 \Omega$
@@ -192,6 +172,7 @@
 			\item $1 k\Omega$
 			\item $3.3 k\Omega$
 			\item $10 k\Omega$
+			\item $100 k\Omega$
 		\end{itemize}
 		\item Cables
 	\end{itemize}
@@ -207,7 +188,6 @@
 		\item Diseña un amplificador que tenga una ganancia de $-1$ y acopla la salida del amplificador anterior a la entrada de este, para que la señal sea positiva.
 		\item Realiza las mediciones requeridas en la hoja de anotaciones.
 	\end{enumerate}
-
 
 %----------------------------------------------------------------------------------------
 %	CONCLUSIONES
