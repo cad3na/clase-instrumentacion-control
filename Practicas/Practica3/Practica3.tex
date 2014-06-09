@@ -142,6 +142,55 @@
 			Recuerda que dependiendo del OPAMP que uses, las terminales de tu circuito integrado serán diferentes, por lo que es absolutamente necesario que tengas el datasheet de tu OPAMP a la mano.
 
 %----------------------------------------------------------------------------------------
+
+	\subsection{Divisor de voltaje}
+
+		Cuando tenemos dos resistencias en serie conectadas a una diferencia de potencial eléctrico (voltaje), decimos que estan dividiendo el voltaje, ya que cuando tomamos en cuenta la proporción que guardan, podemos decir el voltaje que se puede medir en el nodo ubicado entre las dos resistencias.
+
+		\begin{center}
+			\begin{circuitikz}[american voltages]
+				\draw (0, 0) to [V=$5 V$] (0, 2) to [R=$R_1$] (2, 2) to [R=$R_2$] (2, 0) -- (0, 0);
+			\end{circuitikz}
+		\end{center}
+
+		Como ya te habrás dado cuenta en la práctica pasada, este circuito es equivalente a:
+
+		\begin{center}
+			\begin{circuitikz}
+				\draw
+				(0,2) node[above]{$5 V$} to[R=$R_1$, o-o] (0, 0) to[R=$R_2$,o-o] (0,-2) node[ground]{}
+				(0,0) to[short, -o] (1,0) node[right] {$V_ref$}
+				;
+			\end{circuitikz}
+		\end{center}
+
+		Si analizamos por un momento su comportamiento, podremos deducir el $V_{ref}$ ¿Que hay del voltaje total? ¿Podemos calcularlo?
+
+		\begin{equation}
+			V_T = I_T R_T
+		\end{equation}
+
+		siendo $R_T = R_1 + R_2$. Pero sabemos que la corriente total es la misma que pasa por todo el circuito (esta en serie!), por lo que podemos despejarla y usarla como una constante mas.
+
+		\begin{equation}
+			I_T = \frac{V_T}{R_T} = I_1 = I_2
+		\end{equation}
+
+		Si ahora nos fijamos en la resistencia $R_2$ solamente ¿Cual sera el voltaje $V_2$ en esta resistencia?
+
+		\begin{equation}
+			V_2 = I_2 R_2
+		\end{equation}
+
+		pero sabemos que $I_2 = \frac{V_T}{R_1 + R_2}$, por lo que podemos expresarla asi:
+
+		\begin{equation}
+			V_2 = \frac{V_T}{R_1 + R_2} R_2 = \frac{R_2}{R_1 + R_2} V_T 
+		\end{equation}
+
+		Esta formula nos da una manera de diseñar un circuito que transforme un voltaje de alimentación a uno determinado por nosotros, con un calculo simple y un par de resistencias.
+
+%----------------------------------------------------------------------------------------
 %	EQUIPO
 %----------------------------------------------------------------------------------------
 
@@ -166,7 +215,9 @@
 	\begin{itemize}
 		\item Protoboard
 		\item Fotorresistencia de $10 k \Omega$ o $100 k \Omega$ o cualquier otra que consigas
-		\item LM741 o LM358
+		\item LM358
+		\item LED
+		\item Zumbador (opcional)
 		\item Resistencias (considera una resistencia del mismo valor que la fotorresistencia)
 		\begin{itemize}
 			\item $180 \Omega$
@@ -200,7 +251,24 @@
 \section{Conclusiones}
 
 	El alumno deberá describir sus conclusiones al final de su reporte de práctica.
-    
+
+%----------------------------------------------------------------------------------------
+%	CUESTIONARIO
+%----------------------------------------------------------------------------------------
+
+\clearpage
+\section{Cuestionario - Práctica 3}
+	Nombre del alumno: \\[0.2cm]
+	\horrule{0.5pt} \\[0.2cm] % Linea horizontal delgada
+
+	\begin{enumerate}
+		\item Si tenemos las resistencias $R_1 = 180 \Omega$ y $R_2 = 330 \Omega$ ¿Que voltaje de salida $V_2$ tendremos para una alimentación de $V_T = 5 V$?\\ \\ \\ \\
+		\item ¿Que valores de resistencias $R_1$ y $R_2$ serán necesarias para que con una alimentación de $12 V$ tengamos una salida de $5 V$?\\ \\ \\ \\
+		\item Si alimento mi OPAMP con una alimentación de $5 V$ y $0V$ y el voltaje en la entrada inversora es de $2.3 V$ y el voltaje en la entrada inversora es $4 V$ ¿Que voltaje $V_O$ tendre en la salida de mi amplificador?\\ \\ \\ \\
+		\item Si alimento mi OPAMP con una alimentación de $5 V$ y $0V$ y el voltaje en la entrada inversora es de $2.3 V$ y el voltaje en la entrada inversora es $1 V$ ¿Que voltaje $V_O$ tendre en la salida de mi amplificador?\\ \\ \\ \\
+		\item ¿Cuáles resistencias usarías para diseñar el divisor de voltaje que te de como salida $2.3 V$?\\
+	\end{enumerate}
+        
 %----------------------------------------------------------------------------------------
 %	HOJA DE ANOTACIONES
 %----------------------------------------------------------------------------------------
