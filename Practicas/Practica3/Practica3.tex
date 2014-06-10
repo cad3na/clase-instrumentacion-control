@@ -145,7 +145,7 @@
 
 	\subsection{Divisor de voltaje}
 
-		Cuando tenemos dos resistencias en serie conectadas a una diferencia de potencial eléctrico (voltaje), decimos que estan dividiendo el voltaje, ya que cuando tomamos en cuenta la proporción que guardan, podemos decir el voltaje que se puede medir en el nodo ubicado entre las dos resistencias.
+		Cuando tenemos dos resistencias en serie conectadas a una diferencia de potencial eléctrico (voltaje), decimos que están dividiendo el voltaje, ya que cuando tomamos en cuenta la proporción que guardan, podemos decir el voltaje que se puede medir en el nodo ubicado entre las dos resistencias.
 
 		\begin{center}
 			\begin{circuitikz}[american voltages]
@@ -164,19 +164,19 @@
 			\end{circuitikz}
 		\end{center}
 
-		Si analizamos por un momento su comportamiento, podremos deducir el $V_{ref}$ ¿Que hay del voltaje total? ¿Podemos calcularlo?
+		Si analizamos por un momento su comportamiento, podremos deducir el $V_{ref}$ ¿Qué hay del voltaje total? ¿Podemos calcularlo?
 
 		\begin{equation}
 			V_T = I_T R_T
 		\end{equation}
 
-		siendo $R_T = R_1 + R_2$. Pero sabemos que la corriente total es la misma que pasa por todo el circuito (esta en serie!), por lo que podemos despejarla y usarla como una constante mas.
+		siendo $R_T = R_1 + R_2$. Pero sabemos que la corriente total es la misma que pasa por todo el circuito (¡está en serie!), por lo que podemos despejarla y usarla como una constante más.
 
 		\begin{equation}
 			I_T = \frac{V_T}{R_T} = I_1 = I_2
 		\end{equation}
 
-		Si ahora nos fijamos en la resistencia $R_2$ solamente ¿Cual sera el voltaje $V_2$ en esta resistencia?
+		Si ahora nos fijamos en la resistencia $R_2$ solamente ¿Cuál será el voltaje $V_2$ en esta resistencia?
 
 		\begin{equation}
 			V_2 = I_2 R_2
@@ -188,7 +188,7 @@
 			V_2 = \frac{V_T}{R_1 + R_2} R_2 = \frac{R_2}{R_1 + R_2} V_T 
 		\end{equation}
 
-		Esta formula nos da una manera de diseñar un circuito que transforme un voltaje de alimentación a uno determinado por nosotros, con un calculo simple y un par de resistencias.
+		Esta fórmula nos da una manera de diseñar un circuito que transforme un voltaje de alimentación a uno determinado por nosotros, con un cálculo simple y un par de resistencias.
 
 %----------------------------------------------------------------------------------------
 %	EQUIPO
@@ -262,11 +262,11 @@
 	\horrule{0.5pt} \\[0.2cm] % Linea horizontal delgada
 
 	\begin{enumerate}
-		\item Si tenemos las resistencias $R_1 = 180 \Omega$ y $R_2 = 330 \Omega$ ¿Que voltaje de salida $V_2$ tendremos para una alimentación de $V_T = 5 V$?\\ \\ \\ \\
-		\item ¿Que valores de resistencias $R_1$ y $R_2$ serán necesarias para que con una alimentación de $12 V$ tengamos una salida de $5 V$?\\ \\ \\ \\
-		\item Si alimento mi OPAMP con una alimentación de $5 V$ y $0V$ y el voltaje en la entrada inversora es de $2.3 V$ y el voltaje en la entrada inversora es $4 V$ ¿Que voltaje $V_O$ tendre en la salida de mi amplificador?\\ \\ \\ \\
-		\item Si alimento mi OPAMP con una alimentación de $5 V$ y $0V$ y el voltaje en la entrada inversora es de $2.3 V$ y el voltaje en la entrada inversora es $1 V$ ¿Que voltaje $V_O$ tendre en la salida de mi amplificador?\\ \\ \\ \\
-		\item ¿Cuáles resistencias usarías para diseñar el divisor de voltaje que te de como salida $2.3 V$?\\
+		\item Si tenemos las resistencias $R_1 = 180 \Omega$ y $R_2 = 330 \Omega$ ¿Qué voltaje de salida $V_2$ tendremos para una alimentación de $V_T = 5 V$?\\ \\ \\ \\
+		\item ¿Qué valores de resistencias $R_1$ y $R_2$ serán necesarias para que con una alimentación de $12 V$ tengamos una salida de $5 V$?\\ \\ \\ \\
+		\item Si alimento mi OPAMP con una alimentación de $5 V$ y $0V$ y el voltaje en la entrada inversora es de $2.3 V$ y el voltaje en la entrada inversora es $4 V$ ¿Qué voltaje $V_O$ tendré en la salida de mi amplificador?\\ \\ \\ \\
+		\item Si alimento mi OPAMP con una alimentación de $5 V$ y $0V$ y el voltaje en la entrada inversora es de $2.3 V$ y el voltaje en la entrada inversora es $1 V$ ¿Qué voltaje $V_O$ tendré en la salida de mi amplificador?\\ \\ \\ \\
+		\item ¿Cuáles resistencias usarías para diseñar el divisor de voltaje que te dé como salida $2.3 V$?\\
 	\end{enumerate}
         
 %----------------------------------------------------------------------------------------
