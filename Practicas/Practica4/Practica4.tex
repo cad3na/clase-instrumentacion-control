@@ -1,19 +1,17 @@
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	PAQUETES Y OTRAS CONFIGURACIONES
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \input{../style/practica.tex}
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	TITULO
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
-\title{	
+\title{
 	\normalfont \normalsize
 	\begin{figure}[h]
-		\begin{center}
-			\includegraphics[width=0.3\textwidth]{../images/UNITEC.png} % La imagen esta incluida en el mismo directorio del código
-		\end{center}
+		\centering \includegraphics[width=0.3\textwidth]{../images/UNITEC.png}
 	\end{figure}
 	\textsc{Instrumentación y Control} \\ [25pt]
 	\horrule{0.5pt} \\[0.4cm] % Linea horizontal delgada
@@ -23,31 +21,31 @@
 
 \author{Roberto Cadena Vega} % Nombre del profesor
 
-\date{\normalsize 17 de julio de 2014} % Fecha de la práctica
+\date{\normalsize 18 de julio de 2014} % Fecha de la práctica
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	EMPIEZA EL DOCUMENTO
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \begin{document}
 
 \maketitle % Imprime el título
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	OBJETIVOS
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \section{Objetivos}
 
 	Implementar un sistema eléctrico simple, que sea capaz de controlar el brillo de un LED.
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	CONOCIMIENTOS PREVIOS
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \section{Conocimientos Previos}
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 	\subsection{Control}
 
@@ -55,7 +53,7 @@
 
 		Comunmente el control, lo aplicamos en las señales eléctricas, ya que son el tipo de señales que nos da la mayoria de nuestros sensores, y es el tipo de señal que toman como entrada los elementos de actuación. Digamos que es una manera comoda de manejar nuestras señales.
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 	\subsection{Señal Eléctrica}
 
@@ -73,7 +71,7 @@
 
 		La manera mas facil de hacerlo, es lo que realizaste para dar un voltaje de referencia en la práctica pasada, eso se llama divisor de voltaje.
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 	\subsection{Divisor de voltaje}
 
@@ -117,7 +115,7 @@
 		pero sabemos que $I_2 = \frac{V_T}{R_1 + R_2}$, por lo que podemos expresarla asi:
 
 		\begin{equation}
-			V_2 = \frac{V_T}{R_1 + R_2} R_2 = \frac{R_2}{R_1 + R_2} V_T 
+			V_2 = \frac{V_T}{R_1 + R_2} R_2 = \frac{R_2}{R_1 + R_2} V_T
 		\end{equation}
 
 		Esta manera de controlar el voltaje no es la óptima para controlar elementos eléctricos como los motores, debido a la baja impedancia de los motores, y su alto consumo de corriente eléctrica. A continuación veremos una manera mas de controlar el voltaje.
@@ -231,7 +229,7 @@
 %----------------------------------------------------------------------------------------
 
 \section{Desarrollo}
-	
+
 	\begin{enumerate}
 		\item Diseña divisores de voltaje para suministrar una alimentación de $2 V$, $2.5 V$ y $3 V$. Toma como voltaje de alimentación general $5 V$.
 		\item Diseña un divisor de voltaje variable con un potenciometro. Recuerda que al LED no le puedes suministrar mas de $3 V$ sin que se queme.
@@ -246,14 +244,14 @@
 \section{Conclusiones}
 
 	El alumno deberá describir sus conclusiones al final de su reporte de práctica.
-    
+
 %----------------------------------------------------------------------------------------
 %	HOJA DE ANOTACIONES
 %----------------------------------------------------------------------------------------
 
 \clearpage
 \section{Hoja de Anotaciones}
-	
+
 	\begin{enumerate}
 		\item ¿Cuales son los valores de las resistencias utilizadas para el divisor de voltaje de $2 V$? \newline
 		\item ¿Cuales son los valores de las resistencias utilizadas para el divisor de voltaje de $2.5 V$? \newline
@@ -269,11 +267,11 @@
 	\horrule{0.5pt} \\[0.2cm] % Linea horizontal delgada
 	\horrule{0.5pt} \\[0.2cm] % Linea horizontal delgada
 	\horrule{0.5pt} \\[0.2cm] % Linea horizontal delgada
-	\horrule{0.5pt} % Linea horizontal delgada	
+	\horrule{0.5pt} % Linea horizontal delgada
 
 	Revisó: \\[0.2cm]
 	\horrule{0.5pt} \\% Linea horizontal delgada
-    
+
 %----------------------------------------------------------------------------------------
 %	FIN DEL DOCUMENTO
 %----------------------------------------------------------------------------------------
