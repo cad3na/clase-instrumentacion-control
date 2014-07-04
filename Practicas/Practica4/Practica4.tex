@@ -73,62 +73,13 @@
 
 %-------------------------------------------------------------------------------
 
-	\subsection{Divisor de voltaje}
-
-		Cuando tenemos dos resistencias en serie conectadas a una diferencia de potencial eléctrico (voltaje), decimos que estan dividiendo el voltaje, ya que cuando tomamos en cuenta la proporción que guardan, podemos decir el voltaje que se puede medir en el nodo ubicado entre las dos resistencias.
-
-		\begin{center}
-			\begin{circuitikz}[american voltages]
-				\draw (0, 0) to [V=$5 V$] (0, 2) to [R=$R_1$] (2, 2) to [R=$R_2$] (2, 0) -- (0, 0);
-			\end{circuitikz}
-		\end{center}
-
-		Como ya te habrás dado cuenta en la práctica pasada, este circuito es equivalente a:
-
-		\begin{center}
-			\begin{circuitikz}
-				\draw
-				(0,2) node[above]{$5 V$} to[R=$R_1$, o-o] (0, 0) to[R=$R_2$,o-o] (0,-2) node[ground]{}
-				(0,0) to[short, -o] (1,0) node[right] {$V_ref$}
-				;
-			\end{circuitikz}
-		\end{center}
-
-		Si analizamos por un momento su comportamiento, podremos deducir el $V_{ref}$ ¿Que hay del voltaje total? ¿Podemos calcularlo?
-
-		\begin{equation}
-			V_T = I_T R_T
-		\end{equation}
-
-		siendo $R_T = R_1 + R_2$. Pero sabemos que la corriente total es la misma que pasa por todo el circuito (esta en serie!), por lo que podemos despejarla y usarla como una constante mas.
-
-		\begin{equation}
-			I_T = \frac{V_T}{R_T} = I_1 = I_2
-		\end{equation}
-
-		Si ahora nos fijamos en la resistencia $R_2$ solamente ¿Cual sera el voltaje $V_2$ en esta resistencia?
-
-		\begin{equation}
-			V_2 = I_2 R_2
-		\end{equation}
-
-		pero sabemos que $I_2 = \frac{V_T}{R_1 + R_2}$, por lo que podemos expresarla asi:
-
-		\begin{equation}
-			V_2 = \frac{V_T}{R_1 + R_2} R_2 = \frac{R_2}{R_1 + R_2} V_T
-		\end{equation}
-
-		Esta manera de controlar el voltaje no es la óptima para controlar elementos eléctricos como los motores, debido a la baja impedancia de los motores, y su alto consumo de corriente eléctrica. A continuación veremos una manera mas de controlar el voltaje.
-
-%----------------------------------------------------------------------------------------
-
 	\subsection{PWM}
 
 		Otra manera de controlar el voltaje suministrado a un elemento de actuación, es utilizar un PWM\footnote{Pulse Width Modulation (Modulación por Ancho de Pulso).}. Básicamente, lo que tratamos de hacer es apagar y prender rapidamente el elemento eléctrico a controlar, de manera que el voltaje que alcanze a ver el elemento eléctrico no sea completamente el que le suministremos, sino uno proporcional al tiempo en que lo dejamos prendido.
 
 		Veamos una gráfica:
 
-
+		\missingfigure{Gráfica de PWM.}
 
 		Como puedes ver le estamos suministrando un pulso de $5 V$, pero no es constante, digamos que esta prendido el $50\%$ del tiempo. En dado caso, decimos que el $DC$\footnote{Duty Cycle (Ciclo de Trabajo).} es de $50\%$, y la fórmula para el voltaje aparente en el elemento eléctrico conectado es:
 
@@ -146,7 +97,7 @@
 
 		Esta señal cuadrada puede ser generada por el generador de funciones, y debes estar atento para cuando se describa su funcionamiento en el momento de la práctica.
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 	\subsection{LED}
 
@@ -165,7 +116,7 @@
 
 		Este divisor de voltaje es constante, debido a que las resistencias no se pueden variar, pero conocemos un elemento resistivo variable. El potenciometro.
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 	\subsection{Potenciometro}
 		Un potenciometro es una resistencia que tiene una sonda a la que se le puede modificar su posición. Cuando se modifica su posición, puede dar una resistencia menor al maximo para el que esta construido, asi pues si el potenciometro esta marcado como de $10 k \Omega$, la mayor resistencia que te podrá dar es de $10 k \Omega$ y la menor de $0 \Omega$.
@@ -183,9 +134,9 @@
 
 		Si el dial del potenciometro esta al 50\% del final, $R_1 = R_2$, si esta al 66.6\%, $R_1 = 2 R_2$, y asi.
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	EQUIPO
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \section{Equipo}
 
@@ -202,9 +153,9 @@
 		\item Pinzas
 	\end{itemize}
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	MATERIALES
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \section{Materiales}
 
@@ -224,9 +175,9 @@
 		\item Cables
 	\end{itemize}
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	DESARROLLO
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \section{Desarrollo}
 
@@ -237,17 +188,17 @@
 	\end{enumerate}
 
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	CONCLUSIONES
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \section{Conclusiones}
 
 	El alumno deberá describir sus conclusiones al final de su reporte de práctica.
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	HOJA DE ANOTACIONES
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \clearpage
 \section{Hoja de Anotaciones}
@@ -272,8 +223,8 @@
 	Revisó: \\[0.2cm]
 	\horrule{0.5pt} \\% Linea horizontal delgada
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	FIN DEL DOCUMENTO
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \end{document}
