@@ -8,7 +8,7 @@
 %	TITULO
 %----------------------------------------------------------------------------------------
 
-\title{	
+\title{
 	\normalfont \normalsize
 	\begin{figure}[h]
 		\begin{center}
@@ -33,79 +33,36 @@
 
 \maketitle % Imprime el título
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	OBJETIVOS
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \section{Objetivos}
 
-	Implementar un sistema eléctrico simple, que sea capaz de controlar la velocidad de un motor de corriente directa.
+	Implementar un sistema de control automático de tipo On/Off.
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	CONOCIMIENTOS PREVIOS
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \section{Conocimientos Previos}
 
+%-------------------------------------------------------------------------------
 
-	\subsection{Motores}
-		
-		Los motores eléctricos de CD pueden llegar a tomar una corriente de $\frac{1}{2} A$, sin tener temor a que se queme, aunque si pudiera quemar otros elementos eléctricos.
+	\subsection{Control}
 
-		Calculemos la potencia del motor si le suministramos $5 V$ y toma una corriente de $\frac{1}{2} A$.
+		Le llamaremos control, a todas las acciones que podemos tomar, para modificar las variables que queremos regular en nuestro sistema.
 
-		\begin{equation}
-			P_{M} = \left(5 V \right) \left( \frac{1}{2} A \right) = 2.5 W
-		\end{equation}
+		Comunmente el control, lo aplicamos en las señales eléctricas, ya que son el tipo de señales que nos da la mayoria de nuestros sensores, y es el tipo de señal que toman como entrada los elementos de actuación. Digamos que es una manera comoda de manejar nuestras señales.
 
-		Pero si calculamos la potencia que debe tener una resistencia conectada en serie con el motor.
+%-------------------------------------------------------------------------------
 
-		\begin{equation}
-			P_{R} = \left( algo V \right) \left( \frac{1}{2} A \right)
-		\end{equation}
-
-		Si sabemos que la resistencia\footnote{Un motor no tiene resistencia, tiene impedancia, pero por el momento puedes pensar en la impedancia, como la resistencia de un motor.} de un motor es de alrededor de los $10 \Omega$, y nuestra resistencia es de $100 \Omega$, podemos deducir que el voltaje que recibirá la resistencia es:
-
-		\begin{equation}
-			V_{R} = \frac{100 \Omega}{100 \Omega + 10 \Omega} 5 V = 4.54 V 
-		\end{equation}
-
-		Eso quiere decir, que por muy pequeña que sea nuestra resistencia, el motor tiene una resistencia aun menor, y por lo tanto tendra el menor voltaje en el, y la resistencia tendrá el mayor voltaje, y la misma corriente:
-
-		\begin{equation}
-			P_{R} = V_{R} I_{R} = \left( 4.54 V \right) \left( \frac{1}{2} A \right) = 2.27 W
-		\end{equation}
-
-		Y para los que recuerden el valor de potencia de las resistencias comerciales, se venden en $\frac{1}{4} W$ y $\frac{1}{2} W$, lo que quiere decir que cualquier resistencia que compremos, terminará quemada si la conectamos a un motor.
+	\subsection{Control On/Off}
 
 
-%----------------------------------------------------------------------------------------
-
-	\subsection{Etapa de Potencia}
-
-		Nuestro PWM ya puede darle voltaje a nuestro motor, pero aun va a demandar una gran cantidad de corriente, por lo que tenemos que aislar nuestro equipo de laboratorio, de nuestro motor. Una manera muy fácil de aislar una gran demanda de corriente es con un relevador, desafortunadamente no es una buena idea hacer esto cuando la señal de control es PWM.
-
-		Otra manera, tambien muy fácil es con un Darlington Array. Un Darlington Array es basicamente lo siguiente:
-
-		\begin{center}
-			\begin{circuitikz}
-				\draw
-				(0,0) node[npn](npn1){}
-				(1,-1) node[npn](npn2){}
-				(npn1.base) node[anchor=east]{$V_I$}
-				(npn1.collector) node[anchor=south]{} to[short, -*] (1,0.77)
-				(npn1.emitter) node[anchor=north]{} to[short] (npn2.base)
-				(npn2.collector) node[anchor=south]{} to[short] (1,1)
-				(npn2.emitter) node[anchor=north]{$V_O$}
-				;
-			\end{circuitikz}
-		\end{center}
-
-		Y por ahora no tienes que saber que significa, tan solo que te servira como un interruptor, el cual puedes alimentar con un mayor voltaje y una mucho mayor corriente.
-
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	EQUIPO
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \section{Equipo}
 
@@ -116,20 +73,22 @@
 		\item 1 Generador de Funciones
 		\item 1 Osciloscopio
 		\item 1 Multímetro
-		\item 1 Cable de alimentación
+		\item 3 Cables de alimentación
 		\item 2 Cables banana - caimán
 		\item 3 Cables coaxial - caimán
 		\item Pinzas
 	\end{itemize}
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	MATERIALES
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \section{Materiales}
 
 	\begin{itemize}
 		\item Protoboard
+		\item LM35
+		\item LM358
 		\item 1 ULN2003 (Darlington Array)
 		\item 1 Motor CD de $5 V$ - $12 V$ de alimentación
 		\item Resistencias
@@ -137,19 +96,22 @@
 			\item $180 \Omega$
 			\item $220 \Omega$
 			\item $330 \Omega$
+			\item $470 \Omega$
 			\item $1 k\Omega$
+			\item $2.2 k\Omega$
 			\item $3.3 k\Omega$
+			\item $4.7 k\Omega$
 			\item $10 k\Omega$
 		\end{itemize}
 		\item Cables
 	\end{itemize}
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	DESARROLLO
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \section{Desarrollo}
-	
+
 	\begin{enumerate}
 		\item Diseña un circuito con tu motor, que se pueda acoplar al generador de funciones, aislandolo de cualquier interacción con el Motor (utiliza un Darlington array para asegurarte de que la corriente tome el motor provenga de la fuente de alimentación y no del generador de funciones).
 	\end{enumerate}
@@ -162,14 +124,14 @@
 \section{Conclusiones}
 
 	El alumno deberá describir sus conclusiones al final de su reporte de práctica.
-    
+
 %----------------------------------------------------------------------------------------
 %	HOJA DE ANOTACIONES
 %----------------------------------------------------------------------------------------
 
 \clearpage
 \section{Hoja de Anotaciones}
-	
+
 	\begin{enumerate}
 		\item Dibuja el diagrama de conexiones para tu circuito. \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline
 	\end{enumerate}
@@ -178,11 +140,11 @@
 	\horrule{0.5pt} \\[0.2cm] % Linea horizontal delgada
 	\horrule{0.5pt} \\[0.2cm] % Linea horizontal delgada
 	\horrule{0.5pt} \\[0.2cm] % Linea horizontal delgada
-	\horrule{0.5pt} % Linea horizontal delgada	
+	\horrule{0.5pt} % Linea horizontal delgada
 
 	Revisó: \\[0.2cm]
 	\horrule{0.5pt} \\% Linea horizontal delgada
-    
+
 %----------------------------------------------------------------------------------------
 %	FIN DEL DOCUMENTO
 %----------------------------------------------------------------------------------------
