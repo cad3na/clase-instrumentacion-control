@@ -49,25 +49,25 @@
 
 	\subsection{Señal Eléctrica}
 
-		Una señal eléctrica tiene varias caracteristicas importantes, de las cuales depende en gran medida la acción de salida. El voltaje aplicado es uno de los parametros mas importantes, mientras mas voltaje, mayor la velocidad con la que girará un motor, mayor el brillo de un LED, etc.
+		Una señal eléctrica tiene varias características importantes, de las cuales depende en gran medida la acción de salida. El voltaje aplicado es uno de los parámetros más importantes, mientras más voltaje, mayor la velocidad con la que girará un motor, mayor el brillo de un LED, etc.
 
-		Otro de los parametros importantes es la corriente, y esta es la que completa la potencia de un elemento; es decir, que el voltaje $V$, por la corriente $I$ es igual a la potencia de un elemento eléctrico.
+		Otro de los parámetros importantes es la corriente, y ésta es la que completa la potencia de un elemento; es decir, que el voltaje $V$, por la corriente $I$ es igual a la potencia de un elemento eléctrico.
 
 		\begin{equation}
 			P = V I
 		\end{equation}
 
-		Y en general, obtenemos que la potencia de un elemento eléctrico es constante. Es decir, que mientras mas voltaje le metamos, menos corriente consumirá, y mientras menos voltaje le demos, mas corriente consumirá. Por lo general, no es buena idea dejar que los elementos eléctricos tomen mas corriente de la que deben, ya que como el voltaje suminsitrado es constante, si empieza a consumir más corriente, sube la potencia de trabajo del elemento, y se quema.
+		Y en general, obtenemos que la potencia de un elemento eléctrico es constante. Es decir, que mientras más voltaje le metamos, menos corriente consumirá, y mientras menos voltaje le demos, más corriente consumirá. Por lo general, no es buena idea dejar que los elementos eléctricos tomen más corriente de la que deben, ya que como el voltaje suministrado es constante, si empieza a consumir más corriente, sube la potencia de trabajo del elemento, y se quema.
 
-		Pues resulta que tenemos que controlar el voltaje dado a un motor eléctrico ¿Como podemos variar el voltaje suministrado a un elemento eléctrico?
+		Pues resulta que tenemos que controlar el voltaje dado a un motor eléctrico ¿Cómo podemos variar el voltaje suministrado a un elemento eléctrico?
 
-		La manera mas facil de hacerlo, es lo que realizaste para dar un voltaje de referencia en la práctica pasada, eso se llama divisor de voltaje.
+		La manera más fácil de hacerlo, es lo que realizaste para dar un voltaje de referencia en la práctica pasada, eso se llama divisor de voltaje.
 
 %-------------------------------------------------------------------------------
 
 	\subsection{PWM}
 
-		Otra manera de controlar el voltaje suministrado a un elemento de actuación, es utilizar un PWM\footnote{Pulse Width Modulation (Modulación por Ancho de Pulso).}. Básicamente, lo que tratamos de hacer es apagar y prender rapidamente el elemento eléctrico a controlar, de manera que el voltaje que alcanze a ver el elemento eléctrico no sea completamente el que le suministremos, sino uno proporcional al tiempo en que lo dejamos prendido.
+		Otra manera de controlar el voltaje suministrado a un elemento de actuación, es utilizar un PWM\footnote{Pulse Width Modulation (Modulación por Ancho de Pulso).}. Básicamente, lo que tratamos de hacer es apagar y prender rápidamente el elemento eléctrico a controlar, de manera que el voltaje que alcance a ver el elemento eléctrico no sea completamente el que le suministremos, sino uno proporcional al tiempo en que lo dejamos prendido.
 
 		Veamos una gráfica:
 
@@ -75,7 +75,7 @@
 			\centering \includegraphics[width=0.85\textwidth]{images/PWM.png}
 		\end{figure}
 
-		Como puedes ver le estamos suministrando un pulso de $5 V$, pero no es constante, digamos que esta prendido el $50\%$ del tiempo. En dado caso, decimos que el $DC$\footnote{Duty Cycle (Ciclo de Trabajo).} es de $50\%$, y la fórmula para el voltaje aparente en el elemento eléctrico conectado es:
+		Como puedes ver le estamos suministrando un pulso de $5 V$, pero no es constante, digamos que está prendido el $50\%$ del tiempo. En dado caso, decimos que el $DC$\footnote{Duty Cycle (Ciclo de Trabajo).} es de $50\%$, y la fórmula para el voltaje aparente en el elemento eléctrico conectado es:
 
 		\begin{equation}
 			V_{PWM} = V_{pico} \cdot DC
@@ -87,7 +87,7 @@
 			V_{PWM} = 5 V \cdot 0.50 = 2.5 V
 		\end{equation}
 
-		Este tipo de señal es cuadrada, y a parte del $DC$, tiene un parametro muy importante, la frecuencia $f$. Por lo general utilizamos $f$, que esten por encima de los $20 kHz$, debido a que el sistema eléctrico va a oscilar, y estas oscilaciones pudieran ser audibles, dependiendo de los elementos eléctrico involucrados, y el oido humano solo es capaz de oir frecuencias entre los $20 Hz$ y $20 kHz$. Sin embargo, tambien tenemos que considerar los tiempos de respuesta de los elementos eléctricos mas complejos, por lo que pudiera ser necesario utilizar una frecuencia menor.
+		Este tipo de señal es cuadrada, y a parte del $DC$, tiene un parámetro muy importante, la frecuencia $f$. Por lo general utilizamos $f$, que estén por encima de los $20 kHz$, debido a que el sistema eléctrico va a oscilar, y estas oscilaciones pudieran ser audibles, dependiendo de los elementos eléctrico involucrados, y el oído humano solo es capaz de oir frecuencias entre los $20 Hz$ y $20 kHz$. Sin embargo, también tenemos que considerar los tiempos de respuesta de los elementos eléctricos más complejos, por lo que pudiera ser necesario utilizar una frecuencia menor.
 
 		Esta señal cuadrada puede ser generada por el generador de funciones, y debes estar atento para cuando se describa su funcionamiento en el momento de la práctica.
 
@@ -95,9 +95,9 @@
 
 	\subsection{LED}
 
-		Los LED's son elementos eléctricos con una resistencia\footnote{Un LED no tiene resistencia, como pudimos confirmar en la práctica 1, pero sabemos que gasta energía, y por lo tanto, al estar conectado al circuito tiene propiedades parecidas a las de una resistencia.} muy parecida a la de las resistencias comerciales, y con una potencia de trabajo muy baja, por lo que son ideales para controlarlos a traves de resistencias.
+		Los LED's son elementos eléctricos con una resistencia\footnote{Un LED no tiene resistencia, como pudimos confirmar en la práctica 1, pero sabemos que gasta energía, y por lo tanto, al estar conectado al circuito tiene propiedades parecidas a las de una resistencia.} muy parecida a la de las resistencias comerciales, y con una potencia de trabajo muy baja, por lo que son ideales para controlarlos a través de resistencias.
 
-		Podemos hacer un divisor de voltaje, que alimente un LED y por lo tanto varie el voltaje suministrado al LED; cambiando asi la intensidad luminosa del LED.
+		Podemos hacer un divisor de voltaje, que alimente un LED y por lo tanto varíe el voltaje suministrado al LED; cambiando así la intensidad luminosa del LED.
 
 		\begin{center}
 			\begin{circuitikz}
@@ -108,14 +108,14 @@
 			\end{circuitikz}
 		\end{center}
 
-		Este divisor de voltaje es constante, debido a que las resistencias no se pueden variar, pero conocemos un elemento resistivo variable. El potenciometro.
+		Este divisor de voltaje es constante, debido a que las resistencias no se pueden variar, pero conocemos un elemento resistivo variable. El potenciómetro.
 
 %-------------------------------------------------------------------------------
 
-	\subsection{Potenciometro}
-		Un potenciometro es una resistencia que tiene una sonda a la que se le puede modificar su posición. Cuando se modifica su posición, puede dar una resistencia menor al maximo para el que esta construido, asi pues si el potenciometro esta marcado como de $10 k \Omega$, la mayor resistencia que te podrá dar es de $10 k \Omega$ y la menor de $0 \Omega$.
+	\subsection{Potenciómetro}
+		Un potenciómetro es una resistencia que tiene una sonda a la que se le puede modificar su posición. Cuando se modifica su posición, puede dar una resistencia menor al máximo para el que está construído, así pues si el potenciómetro está marcado como de $10 k \Omega$, la mayor resistencia que te podrá dar es de $10 k \Omega$ y la menor de $0 \Omega$.
 
-		Basicamente un potenciometro es un divisor de voltaje, construido de tal manera que las dos resistencias dependan de la posición de la sonda.
+		Básicamente un potenciómetro es un divisor de voltaje, construído de tal manera que las dos resistencias dependan de la posición de la sonda.
 
 		\begin{center}
 			\begin{circuitikz}
@@ -126,7 +126,7 @@
 			\end{circuitikz}
 		\end{center}
 
-		Si el dial del potenciometro esta al 50\% del final, $R_1 = R_2$, si esta al 66.6\%, $R_1 = 2 R_2$, y asi.
+		Si el dial del potenciómetro está al 50\% del final, $R_1 = R_2$, si está al 66.6\%, $R_1 = 2 R_2$, y así.
 
 %-------------------------------------------------------------------------------
 
@@ -152,7 +152,7 @@
 		V_{R} = \frac{100 \Omega}{100 \Omega + 10 \Omega} 5 V = 4.54 V
 	\end{equation}
 
-	Eso quiere decir, que por muy pequeña que sea nuestra resistencia, el motor tiene una resistencia aun menor, y por lo tanto tendra el menor voltaje en el, y la resistencia tendrá el mayor voltaje, y la misma corriente:
+	Eso quiere decir, que por muy pequeña que sea nuestra resistencia, el motor tiene una resistencia aún menor, y por lo tanto tendrá el menor voltaje en él, y la resistencia tendrá el mayor voltaje, y la misma corriente:
 
 	\begin{equation}
 		P_{R} = V_{R} I_{R} = \left( 4.54 V \right) \left( \frac{1}{2} A \right) = 2.27 W
@@ -165,9 +165,9 @@
 
 \subsection{Etapa de Potencia}
 
-	Nuestro PWM ya puede darle voltaje a nuestro motor, pero aun va a demandar una gran cantidad de corriente, por lo que tenemos que aislar nuestro equipo de laboratorio, de nuestro motor. Una manera muy fácil de aislar una gran demanda de corriente es con un relevador, desafortunadamente no es una buena idea hacer esto cuando la señal de control es PWM.
+	Nuestro PWM ya puede darle voltaje a nuestro motor, pero aún va a demandar una gran cantidad de corriente, por lo que tenemos que aislar nuestro equipo de laboratorio, de nuestro motor. Una manera muy fácil de aislar una gran demanda de corriente es con un relevador, desafortunadamente no es una buena idea hacer esto cuando la señal de control es PWM.
 
-	Otra manera, tambien muy fácil es con un Darlington Array. Un Darlington Array es basicamente lo siguiente:
+	Otra manera, también muy fácil es con un Darlington Array. Un Darlington Array es básicamente lo siguiente:
 
 	\begin{center}
 		\begin{circuitikz}
@@ -183,7 +183,7 @@
 		\end{circuitikz}
 	\end{center}
 
-	Y por ahora no tienes que saber que significa, tan solo que te servira como un interruptor, el cual puedes alimentar con un mayor voltaje y una mucho mayor corriente.
+	Y por ahora no tienes que saber qué significa, tan solo que te servirá como un interruptor, el cual puedes alimentar con un mayor voltaje y una mucho mayor corriente.
 
 %-------------------------------------------------------------------------------
 %	EQUIPO
@@ -213,7 +213,7 @@
 	\begin{itemize}
 		\item Protoboard
 		\item 1 LED
-		\item Potenciometro de $10 k \Omega$ (o cualquier otro que consigas)
+		\item Potenciómetro de $10 k \Omega$ (o cualquier otro que consigas)
 		\item 1 ULN2003 (Darlington Array)
 		\item 1 Motor CD de $5 V$ - $12 V$ de alimentación
 		\item Resistencias
@@ -239,9 +239,9 @@
 
 	\begin{enumerate}
 		\item Diseña divisores de voltaje para suministrar una alimentación de $2 V$, $2.5 V$ y $3 V$. Toma como voltaje de alimentación general $5 V$.
-		\item Diseña un divisor de voltaje variable con un potenciometro. Recuerda que al LED no le puedes suministrar mas de $3 V$ sin que se queme.
+		\item Diseña un divisor de voltaje variable con un potenciómetro. Recuerda que al LED no le puedes suministrar más de $3 V$ sin que se queme.
 		\item Diseña una señal de PWM que nos suministre voltajes aparentes de $2 V$, $2.5 V$ y $3 V$. Toma como voltaje pico $5 V$.
-		\item Diseña un circuito con tu motor, que se pueda acoplar al generador de funciones, aislandolo de cualquier interacción con el Motor (utiliza un Darlington array para asegurarte de que la corriente tome el motor provenga de la fuente de alimentación y no del generador de funciones).
+		\item Diseña un circuito con tu motor, que se pueda acoplar al generador de funciones, aislándolo de cualquier interacción con el Motor (utiliza un Darlington array para asegurarte de que la corriente tome el motor provenga de la fuente de alimentación y no del generador de funciones).
 	\end{enumerate}
 
 
@@ -266,8 +266,8 @@
 		\item ¿A qué se refieren las iniciales CD y CA?\\ \\ \\ \\
 		\item ¿Qué otro ejemplo en donde se utilice un PWM conoces?\\ \\ \\ \\
 		\item ¿Puedo conectar directamente un motor a un divisor de voltaje?\\ \\ \\ \\
-		\item ¿Cual será la potencia de un motor monofasico que demanda una corriente de $\frac{3}{4} A$?\\ \\ \\ \\
-		\item Si tenemos un motor de CD y su potencia de trabajo es de $2 W$ ¿Cual será la corriente que demande cuando se le suministren $12 V$?\\
+		\item ¿Cuál será la potencia de un motor monofásico que demanda una corriente de $\frac{3}{4} A$?\\ \\ \\ \\
+		\item Si tenemos un motor de CD y su potencia de trabajo es de $2 W$ ¿Cuál será la corriente que demande cuando se le suministren $12 V$?\\
 	\end{enumerate}
 
 %-------------------------------------------------------------------------------
@@ -278,14 +278,14 @@
 \section{Hoja de Anotaciones}
 
 	\begin{enumerate}
-		\item ¿Cuales son los valores de las resistencias utilizadas para el divisor de voltaje de $2 V$? \newline
-		\item ¿Cuales son los valores de las resistencias utilizadas para el divisor de voltaje de $2.5 V$? \newline
-		\item ¿Cuales son los valores de las resistencias utilizadas para el divisor de voltaje de $3 V$? \newline
-		\item Si quiero que el divisor de voltaje variable me suministre $2 V$ y esta conectado a una diferencia de potencial de $5 V$ ¿A que porcentaje de la posición final lo obtendré? \newline
-		\item Si quiero que el divisor de voltaje variable me suministre $2.5 V$ y esta conectado a una diferencia de potencial de $5 V$ ¿A que porcentaje de la posición final lo obtendré? \newline
-		\item Si quiero que el divisor de voltaje variable me suministre $3 V$ y esta conectado a una diferencia de potencial de $5 V$ ¿A que porcentaje de la posición final lo obtendré? \newline
-		\item Si tengo una señal PWM de $5 V$ de $V_{pico}$ ¿Cual será el $DC$ que me de un voltaje aparente de $2.2 V$?\newline
-		\item Dibuja los diagramas para todos los sistemas que diseñaste en la parte posterior de esta hoja (Divisores de voltaje fijos a $2 V$, $2.5 V$ y $3 V$, divisor de voltaje variable, conexion con generador de funciones). \newline \newline \newline \newline \newline
+		\item ¿Cuáles son los valores de las resistencias utilizadas para el divisor de voltaje de $2 V$? \newline
+		\item ¿Cuáles son los valores de las resistencias utilizadas para el divisor de voltaje de $2.5 V$? \newline
+		\item ¿Cuáles son los valores de las resistencias utilizadas para el divisor de voltaje de $3 V$? \newline
+		\item Si quiero que el divisor de voltaje variable me suministre $2 V$ y está conectado a una diferencia de potencial de $5 V$ ¿A qué porcentaje de la posición final lo obtendré? \newline
+		\item Si quiero que el divisor de voltaje variable me suministre $2.5 V$ y está conectado a una diferencia de potencial de $5 V$ ¿A qué porcentaje de la posición final lo obtendré? \newline
+		\item Si quiero que el divisor de voltaje variable me suministre $3 V$ y está conectado a una diferencia de potencial de $5 V$ ¿A qué porcentaje de la posición final lo obtendré? \newline
+		\item Si tengo una señal PWM de $5 V$ de $V_{pico}$ ¿Cuál será el $DC$ que me dé un voltaje aparente de $2.2 V$?\newline
+		\item Dibuja los diagramas para todos los sistemas que diseñaste en la parte posterior de esta hoja (Divisores de voltaje fijos a $2 V$, $2.5 V$ y $3 V$, divisor de voltaje variable, conexión con generador de funciones). \newline \newline \newline \newline \newline
 	\end{enumerate}
 
 	Integrantes del equipo: \\[0.2cm]
