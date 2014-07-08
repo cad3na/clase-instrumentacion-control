@@ -1,12 +1,12 @@
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	PAQUETES Y OTRAS CONFIGURACIONES
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \input{../style/practica.tex}
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	TITULO
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \title{
 	\normalfont \normalsize
@@ -17,7 +17,7 @@
 	\end{figure}
 	\textsc{Instrumentación y Control} \\ [25pt]
 	\horrule{0.5pt} \\[0.4cm] % Linea horizontal delgada
-	\huge Práctica 5 - Actuación II \\ % Titulo de la práctica
+	\huge Práctica 5 - Sistema de Control On/Off \\ % Titulo de la práctica
 	\horrule{2pt} \\[0.5cm] % Linea horizontal mas gruesa
 }
 
@@ -25,9 +25,9 @@
 
 \date{\normalsize 24 de julio de 2014} % Fecha de la práctica
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	EMPIEZA EL DOCUMENTO
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \begin{document}
 
@@ -59,6 +59,45 @@
 
 	\subsection{Control On/Off}
 
+		Un sistema de control On/Off, como su nombre lo inidica, se encarga de controlar una variable del sistema, prendiendo o apagando un elemento de actuación. Es el esquema de control mas ingenuo, pero tambien el mas simple, por lo que es muy sencillo implementarlo.
+
+		Recordemos el comparador de la práctica 3:
+
+		\begin{center}
+			\begin{circuitikz} \draw
+				(0,0) node[op amp](opamp){}
+				(opamp.+) to [short, -*] (-1.2, -0.5) node[below] {$V_i$}
+				(opamp.-) to [short, -o] (-1.2, 0.5) node[left] {$V_{ref}$}
+				(opamp.out) to [short, -o] (1.5, 0) node[right] {$V_o$}
+				(opamp.down) node[ground] {}
+				(opamp.up) to [short, -o] (-0.08, 1) node[above] {$V_+$}
+				(-1.2, -0.5) to [short, *-] (-3, -0.5)
+				(-3, -0.5) to [phR, l=$R_F$] (-3, 2.5) node[above] {$5 V$}
+				(-3, -0.5) to [R, l=$R_1$] (-3, -3.5) node[ground] {}
+			;\end{circuitikz}
+		\end{center}
+
+		\begin{center}
+			\tikzstyle{input} = [coordinate]
+			\tikzstyle{output} = [coordinate]
+			\tikzstyle{block} = [draw, rectangle, minimum height=3em, minimum width=6em]
+			\tikzstyle{sum} = [draw, circle, node distance=3cm]
+			\tikzstyle{init} = [pin edge={to-, thin, black}]
+			\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+
+			\begin{tikzpicture}[auto, node distance=3cm, >=latex']
+				\node [input, name=entrada] {};
+				\node [block, right of=entrada] (sensor) {Señal};
+				\node [sum, right of=sensor, pin={[pinstyle]above:$- V_{ref}$}] (suma) {};
+				\node [block, right of=suma] (amplificador) {$\infty$};
+				\node [output, right of=amplificador] (salida) {};
+
+				\draw [->] (entrada) -- node {$x$} (sensor);
+				\draw [->] (sensor) -- node {$u$} node[pos=0.99] {$+$} (suma);
+				\draw [->] (suma) -- node {$v$} (amplificador);
+				\draw [->] (amplificador) -- node {$y$} (salida);
+			\end{tikzpicture}
+		\end{center}
 
 %-------------------------------------------------------------------------------
 %	EQUIPO
@@ -70,12 +109,9 @@
 
 	\begin{itemize}
 		\item 1 Fuente de Alimentación
-		\item 1 Generador de Funciones
-		\item 1 Osciloscopio
 		\item 1 Multímetro
-		\item 3 Cables de alimentación
+		\item 1 Cable de alimentación
 		\item 2 Cables banana - caimán
-		\item 3 Cables coaxial - caimán
 		\item Pinzas
 	\end{itemize}
 
@@ -117,17 +153,34 @@
 	\end{enumerate}
 
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	CONCLUSIONES
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \section{Conclusiones}
 
 	El alumno deberá describir sus conclusiones al final de su reporte de práctica.
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+%	CUESTIONARIO
+%-------------------------------------------------------------------------------
+
+\clearpage
+\section{Cuestionario - Práctica 5}
+	Nombre del alumno: \\[0.2cm]
+	\horrule{0.5pt} \\[0.2cm] % Linea horizontal delgada
+
+	\begin{enumerate}
+		\item \\ \\ \\ \\
+		\item \\ \\ \\ \\
+		\item \\ \\ \\ \\
+		\item \\ \\ \\ \\
+		\item \\
+	\end{enumerate}
+
+%-------------------------------------------------------------------------------
 %	HOJA DE ANOTACIONES
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \clearpage
 \section{Hoja de Anotaciones}
@@ -145,8 +198,8 @@
 	Revisó: \\[0.2cm]
 	\horrule{0.5pt} \\% Linea horizontal delgada
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	FIN DEL DOCUMENTO
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \end{document}
