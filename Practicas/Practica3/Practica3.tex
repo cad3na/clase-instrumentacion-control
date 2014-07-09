@@ -1,14 +1,14 @@
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	PAQUETES Y OTRAS CONFIGURACIONES
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \input{../style/practica.tex}
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	TITULO
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
-\title{	
+\title{
 	\normalfont \normalsize
 	\begin{figure}[h]
 		\begin{center}
@@ -25,29 +25,29 @@
 
 \date{\normalsize 12 de junio de 2014} % Fecha de la práctica
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	EMPIEZA EL DOCUMENTO
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \begin{document}
 
 \maketitle % Imprime el título
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	OBJETIVOS
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \section{Objetivos}
 
 	Implementar un sistema eléctrico simple, que sea capaz de medir la intensidad luminosa.
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	CONOCIMIENTOS PREVIOS
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \section{Conocimientos Previos}
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 	\subsection{Transductores}
 
@@ -57,7 +57,7 @@
 
 		El problema es que la resistencia no es una señal que podamos medir fácilmente, de hecho cuando la medimos con el multímetro, este tiene que aplicar un voltaje de prueba para saber, a través de un cálculo, la resistencia y justo esto es lo que haremos.
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 	\subsection{Acondicionamiento}
 
@@ -83,7 +83,7 @@
 
 		¿Más aún, qué tan oscuro significa que no hay luz? ¿Si alguien saca su celular e ilumina ligeramente el cuarto debemos considerar que hay luz? Tenemos que considerar una referencia.
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 		\subsubsection{Comparadores}
 
@@ -99,17 +99,17 @@
 					(opamp.up) to [short, -o] (-0.08, 1) node[above] {$V_+$}
 					(-1.2, -0.5) to [short, *-] (-3, -0.5)
 					(-3, -0.5) to [phR, l=$R_F$] (-3, 2.5) node[above] {$5 V$}
-					(-3, -0.5) to [R, l=$R_1$] (-3, -3.5) node[ground] {} 
-				;\end{circuitikz}	
+					(-3, -0.5) to [R, l=$R_1$] (-3, -3.5) node[ground] {}
+				;\end{circuitikz}
 			\end{center}
-			
+
 			y la ecuación que rige su comportamiento es:
 
 				\begin{equation}
 					V_o = \left\{
-					\begin{array}{r l}	
+					\begin{array}{r l}
 						0 V & V_i < V_{ref}  \\
-						V_+ & V_i > V_{ref}  
+						V_+ & V_i > V_{ref}
 					\end{array} \right.
 				\end{equation}
 
@@ -141,7 +141,7 @@
 
 			Recuerda que dependiendo del OPAMP que uses, las terminales de tu circuito integrado serán diferentes, por lo que es absolutamente necesario que tengas el datasheet de tu OPAMP a la mano.
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 	\subsection{Divisor de voltaje}
 
@@ -185,14 +185,14 @@
 		pero sabemos que $I_2 = \frac{V_T}{R_1 + R_2}$, por lo que podemos expresarla asi:
 
 		\begin{equation}
-			V_2 = \frac{V_T}{R_1 + R_2} R_2 = \frac{R_2}{R_1 + R_2} V_T 
+			V_2 = \frac{V_T}{R_1 + R_2} R_2 = \frac{R_2}{R_1 + R_2} V_T
 		\end{equation}
 
 		Esta fórmula nos da una manera de diseñar un circuito que transforme un voltaje de alimentación a uno determinado por nosotros, con un cálculo simple y un par de resistencias.
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	EQUIPO
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \section{Equipo}
 
@@ -206,9 +206,9 @@
 		\item Pinzas
 	\end{itemize}
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	MATERIALES
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \section{Materiales}
 
@@ -230,12 +230,12 @@
 		\item Cables
 	\end{itemize}
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	DESARROLLO
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \section{Desarrollo}
-	
+
 	\begin{enumerate}
 		\item Diseña un circuito para medir el voltaje que pasa por la fotorresistencia en serie con otra resistencia (como en la práctica 1, con el LED).
 		\item Diseña un circuito para dar un voltaje de referencia al comparador.
@@ -244,17 +244,17 @@
 	\end{enumerate}
 
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	CONCLUSIONES
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \section{Conclusiones}
 
 	El alumno deberá describir sus conclusiones al final de su reporte de práctica.
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 %	CUESTIONARIO
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \clearpage
 \section{Cuestionario - Práctica 3}
@@ -268,14 +268,14 @@
 		\item Si alimento mi OPAMP con una alimentación de $5 V$ y $0V$ y el voltaje en la entrada inversora es de $2.3 V$ y el voltaje en la entrada inversora es $1 V$ ¿Qué voltaje $V_O$ tendré en la salida de mi amplificador?\\ \\ \\ \\
 		\item ¿Cuáles resistencias usarías para diseñar el divisor de voltaje que te dé como salida $2.3 V$?\\
 	\end{enumerate}
-        
-%----------------------------------------------------------------------------------------
+
+%-------------------------------------------------------------------------------
 %	HOJA DE ANOTACIONES
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \clearpage
 \section{Hoja de Anotaciones}
-	
+
 	\begin{enumerate}
 		\item ¿Cuál es el valor del voltaje medido en la fotorresistencia cuando hay luz sobre ella? \newline
 		\item ¿Cuál es el valor del voltaje medido en la fotorresistencia cuando no hay luz sobre ella? \newline
@@ -289,13 +289,13 @@
 	\horrule{0.5pt} \\[0.2cm] % Linea horizontal delgada
 	\horrule{0.5pt} \\[0.2cm] % Linea horizontal delgada
 	\horrule{0.5pt} \\[0.2cm] % Linea horizontal delgada
-	\horrule{0.5pt} % Linea horizontal delgada	
+	\horrule{0.5pt} % Linea horizontal delgada
 
 	Revisó: \\[0.2cm]
 	\horrule{0.5pt} \\% Linea horizontal delgada
-    
-%----------------------------------------------------------------------------------------
+
+%-------------------------------------------------------------------------------
 %	FIN DEL DOCUMENTO
-%----------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
 
 \end{document}
