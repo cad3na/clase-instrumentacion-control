@@ -1,0 +1,223 @@
+%-------------------------------------------------------------------------------
+%	PAQUETES Y OTRAS CONFIGURACIONES
+%-------------------------------------------------------------------------------
+
+\input{../style/practica.tex}
+
+%-------------------------------------------------------------------------------
+%	TITULO
+%-------------------------------------------------------------------------------
+
+\title{
+	\normalfont \normalsize
+	\begin{figure}[h]
+		\begin{center}
+			\includegraphics[width=0.3\textwidth]{../images/UNITEC.png} % La imagen esta incluida en el mismo directorio del código
+		\end{center}
+	\end{figure}
+	\textsc{Instrumentación y Control} \\ [25pt]
+	\horrule{0.5pt} \\[0.4cm] % Linea horizontal delgada
+	\huge Práctica 6 - Sistema de Control PID \\ % Titulo de la práctica
+	\horrule{2pt} \\[0.5cm] % Linea horizontal mas gruesa
+}
+
+\author{Roberto Cadena Vega} % Nombre del profesor
+
+\date{\normalsize 24 de julio de 2014} % Fecha de la práctica
+
+%-------------------------------------------------------------------------------
+%	EMPIEZA EL DOCUMENTO
+%-------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle % Imprime el título
+
+%-------------------------------------------------------------------------------
+%	OBJETIVOS
+%-------------------------------------------------------------------------------
+
+\section{Objetivos}
+
+	Implementar un sistema de control automático de tipo PID.
+
+%-------------------------------------------------------------------------------
+%	CONOCIMIENTOS PREVIOS
+%-------------------------------------------------------------------------------
+
+\section{Conocimientos Previos}
+
+%-------------------------------------------------------------------------------
+
+	\subsection{Control}
+
+		Le llamaremos control, a todas las acciones que podemos tomar, para modificar las variables que queremos regular en nuestro sistema.
+
+		Comunmente el control, lo aplicamos en las señales eléctricas, ya que son el tipo de señales que nos da la mayoria de nuestros sensores, y es el tipo de señal que toman como entrada los elementos de actuación.
+		Digamos que es una manera comoda de manejar nuestras señales.
+
+%-------------------------------------------------------------------------------
+
+	\subsection{Control On/Off}
+
+		Un sistema de control On/Off, como su nombre lo inidica, se encarga de controlar una variable del sistema, prendiendo o apagando un elemento de actuación.
+		Es el esquema de control mas ingenuo, pero tambien el mas simple, por lo que es muy sencillo implementarlo.
+		Recordemos el comparador de la práctica 3:
+
+		\begin{center}
+			\begin{circuitikz} \draw
+				(0,0) node[op amp](opamp){}
+				(opamp.+) to [short, -o] (-1.2, -0.5) node[left] {$V_i$}
+				(opamp.-) to [short, -o] (-1.2, 0.5) node[left] {$V_{ref}$}
+				(opamp.out) to [short, -o] (1.5, 0) node[right] {$V_o$}
+				(opamp.down) node[ground] {}
+				(opamp.up) to [short, -o] (-0.08, 1) node[above] {$V_+$}
+			;\end{circuitikz}
+		\end{center}
+
+		el cual tiene un diagrama de bloques, que describe su comportamiento, como el siguiente:
+
+		\begin{center}
+			\tikzstyle{input} = [coordinate]
+			\tikzstyle{output} = [coordinate]
+			\tikzstyle{block} = [draw, rectangle, minimum height=3em, minimum width=6em]
+			\tikzstyle{sum} = [draw, circle, node distance=3cm]
+			\tikzstyle{init} = [pin edge={to-, thin, black}]
+			\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+
+			\begin{tikzpicture}[auto, node distance=3cm, >=latex']
+				\node [input, name=entrada] {};
+				\node [sum, right of=entrada, pin={[pinstyle]below:$- V_{ref}$}] (suma) {};
+				\node [block, right of=suma] (amplificador) {$\infty$};
+				\node [output, right of=amplificador] (salida) {};
+
+				\draw [->] (entrada) -- node {$V_i$} (suma);
+				\draw [->] (suma) -- node {$V_i - V_{ref}$} (amplificador);
+				\draw [->] (amplificador) -- node {$V_o$} (salida);
+			\end{tikzpicture}
+		\end{center}
+
+		otra manera de decir lo mismo sería con la siguiente ecuación:
+
+		\begin{equation}
+			V_o = \infty \left( V_i - V_{ref} \right)
+		\end{equation}
+
+		pero como la alimentación que le damos al OPAMP no es $\infty$, no tenemos que preocuparnos por este voltaje; tan solo pensemos que si alimentamos nuestro OPAMP con $5 V$, nos dará una salida de $5 V$ o  $0 V$.
+
+		\begin{equation}
+			V_o =
+				\left\{
+					\begin{array}{rl}
+						5 V & \mbox{ si $V_{ref} < V_i$} \\
+						0 V & \mbox{ si $V_{ref} > V_i$}
+       				\end{array}
+				\right.
+		\end{equation}
+
+		Asi pues, podemos notar que funciona como un interruptor, justo lo que deseamos para nuestro control On/Off.
+		Tan solo tenemos que tomar en cuenta, cual es nuestro voltaje de referencia $V_{ref}$, con el que queremos comparar nuestra señal.
+%-------------------------------------------------------------------------------
+%	EQUIPO
+%-------------------------------------------------------------------------------
+
+\section{Equipo}
+
+	El siguiente equipo será proporcionado por el laboratorio, siempre y cuando lleguen en los primeros 15 minutos de la práctica, y hagan el vale conteniendo el siguiente equipo (exceptuando las pinzas).
+
+	\begin{itemize}
+		\item 1 Fuente de Alimentación
+		\item 1 Multímetro
+		\item 1 Cable de alimentación
+		\item 2 Cables banana - caimán
+		\item Pinzas
+	\end{itemize}
+
+%-------------------------------------------------------------------------------
+%	MATERIALES
+%-------------------------------------------------------------------------------
+
+\section{Materiales}
+
+	\begin{itemize}
+		\item Protoboard
+		\item 1 LM35
+		\item 1 LM358
+		\item 1 ULN2003 (Darlington array)\footnote{Arreglo de Darlington}
+		\item 1 Motor CD de $5 V$ - $12 V$ de alimentación
+		\item 1 Rehilete\footnote{Si, como los que venden cada 15 de septiembre en las calles; no tendrás problemas para conseguirlos en una papelería.}
+		\item Resistencias
+		\begin{itemize}
+			\item $180 \Omega$
+			\item $220 \Omega$
+			\item $330 \Omega$
+			\item $470 \Omega$
+			\item $1 k\Omega$
+			\item $2.2 k\Omega$
+			\item $3.3 k\Omega$
+			\item $4.7 k\Omega$
+			\item $10 k\Omega$
+		\end{itemize}
+		\item Cables
+	\end{itemize}
+
+%-------------------------------------------------------------------------------
+%	DESARROLLO
+%-------------------------------------------------------------------------------
+
+\section{Desarrollo}
+
+	\begin{enumerate}
+		\item Diseña un circuito con tu motor, que se pueda acoplar a un sistema de control On/Off que energice el motor cuando la temperatura medida en el ambiente sea mayor a $35^o C$ y que se desenergice cuando baje la temperatura.
+	\end{enumerate}
+
+%-------------------------------------------------------------------------------
+%	CONCLUSIONES
+%-------------------------------------------------------------------------------
+
+\section{Conclusiones}
+
+	El alumno deberá describir sus conclusiones al final de su reporte de práctica.
+
+%-------------------------------------------------------------------------------
+%	CUESTIONARIO
+%-------------------------------------------------------------------------------
+
+\clearpage
+\section{Cuestionario - Práctica 5}
+	Nombre del alumno: \\[0.2cm]
+	\horrule{0.5pt} \\[0.2cm] % Linea horizontal delgada
+
+	\begin{enumerate}
+		\item ¿Bastaría con conectar un interruptor para implementar un sistema de control On/Off?\\ \\ \\ \\
+		\item ¿Que otros tipos de control hemos visto en clase?\\ \\ \\ \\
+		\item Menciona 3 tipos de control que {\bf no} hayamos revisado en clase.\\ \\ \\ \\
+		\item ¿A que efecto se le conoce como saturación en un OPAMP?\\ \\ \\ \\
+		\item Si en la terminal no inversora de nuestro OPAMP esta conectado un voltaje de $2.3 V$ y en la entrada inversora se tiene conectado un voltaje de $1.1 V$ ¿Que voltaje de salida tendremos? Toma en cuenta que el OPAMP esta conectado como comparador, y que su alimentación es a $12 V$ y tierra.\\
+	\end{enumerate}
+
+%-------------------------------------------------------------------------------
+%	HOJA DE ANOTACIONES
+%-------------------------------------------------------------------------------
+
+\clearpage
+\section{Hoja de Anotaciones}
+
+	\begin{enumerate}
+		\item Dibuja el diagrama de conexiones para tu circuito y el diagrama de bloques de tu sistema. \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline \newline
+	\end{enumerate}
+
+	Integrantes del equipo: \\[0.2cm]
+	\horrule{0.5pt} \\[0.2cm] % Linea horizontal delgada
+	\horrule{0.5pt} \\[0.2cm] % Linea horizontal delgada
+	\horrule{0.5pt} \\[0.2cm] % Linea horizontal delgada
+	\horrule{0.5pt} % Linea horizontal delgada
+
+	Revisó: \\[0.2cm]
+	\horrule{0.5pt} \\% Linea horizontal delgada
+
+%-------------------------------------------------------------------------------
+%	FIN DEL DOCUMENTO
+%-------------------------------------------------------------------------------
+
+\end{document}
