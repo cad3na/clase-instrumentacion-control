@@ -49,74 +49,179 @@
 
 %-------------------------------------------------------------------------------
 
-	\subsection{Control}
+	\subsection{Control PID}
 
-		Le llamaremos control, a todas las acciones que podemos tomar, para modificar las variables que queremos regular en nuestro sistema.
-
-		Comunmente el control, lo aplicamos en las señales eléctricas, ya que son el tipo de señales que nos da la mayoria de nuestros sensores, y es el tipo de señal que toman como entrada los elementos de actuación.
-		Digamos que es una manera comoda de manejar nuestras señales.
+		Un sistema de control tiene 3 componentes importantes:
 
 %-------------------------------------------------------------------------------
 
-	\subsection{Control On/Off}
+		\subsubsection{Control P}
 
-		Un sistema de control On/Off, como su nombre lo inidica, se encarga de controlar una variable del sistema, prendiendo o apagando un elemento de actuación.
-		Es el esquema de control mas ingenuo, pero tambien el mas simple, por lo que es muy sencillo implementarlo.
-		Recordemos el comparador de la práctica 3:
+			El control Proporcional no es mas que una ganancia:
 
-		\begin{center}
-			\begin{circuitikz} \draw
-				(0,0) node[op amp](opamp){}
-				(opamp.+) to [short, -o] (-1.2, -0.5) node[left] {$V_i$}
-				(opamp.-) to [short, -o] (-1.2, 0.5) node[left] {$V_{ref}$}
-				(opamp.out) to [short, -o] (1.5, 0) node[right] {$V_o$}
-				(opamp.down) node[ground] {}
-				(opamp.up) to [short, -o] (-0.08, 1) node[above] {$V_+$}
-			;\end{circuitikz}
-		\end{center}
+			\begin{center}
+				\tikzstyle{input} = [coordinate]
+				\tikzstyle{output} = [coordinate]
+				\tikzstyle{block} = [draw, rectangle, minimum height=3em, minimum width=6em]
+				\tikzstyle{init} = [pin edge={to-, thin, black}]
 
-		el cual tiene un diagrama de bloques, que describe su comportamiento, como el siguiente:
+				\begin{tikzpicture}[auto, node distance=3cm, >=latex']
+					\node [input, name=entrada] {};
+					\node [block, right of=entrada] (amplificador) {$k_P$};
+					\node [output, right of=amplificador] (salida) {};
 
-		\begin{center}
-			\tikzstyle{input} = [coordinate]
-			\tikzstyle{output} = [coordinate]
-			\tikzstyle{block} = [draw, rectangle, minimum height=3em, minimum width=6em]
-			\tikzstyle{sum} = [draw, circle, node distance=3cm]
-			\tikzstyle{init} = [pin edge={to-, thin, black}]
-			\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+					\draw [->] (entrada) -- node[name=x] {$x$} (amplificador);
+					\draw [->] (amplificador) -- node[name=y] {$y$} (salida);
+				\end{tikzpicture}
+			\end{center}
 
-			\begin{tikzpicture}[auto, node distance=3cm, >=latex']
-				\node [input, name=entrada] {};
-				\node [sum, right of=entrada, pin={[pinstyle]below:$- V_{ref}$}] (suma) {};
-				\node [block, right of=suma] (amplificador) {$\infty$};
-				\node [output, right of=amplificador] (salida) {};
+			por lo que lo podemos ver simplemente como el siguiente circuito eléctrico:
 
-				\draw [->] (entrada) -- node {$V_i$} (suma);
-				\draw [->] (suma) -- node {$V_i - V_{ref}$} (amplificador);
-				\draw [->] (amplificador) -- node {$V_o$} (salida);
-			\end{tikzpicture}
-		\end{center}
+			\begin{center}
+				\begin{circuitikz} \draw
+					(0,0) node[op amp](opamp){}
+					(opamp.+) to [R, l=$R_I$] (-4, -0.5) to [short, -o] (-4, -0.5) node[left] {$x$}
+					(opamp.-) to [short, *-] (-2, 0.5) to [R, l=$R_I$] (-5, 0.5) node[ground] {}
+					(opamp.-) to [short, *-] (-1.2, 2) to [R, l=$R_f$] (1.2, 2)
+					(opamp.out) to [short, *-o] (2, 0) node[right] {$y$}
+					(opamp.out) to [short, *-] (1.2, 2)
+					(opamp.down) node[ground] {}
+					(opamp.up) to [short, -o] (-0.08, 1) node[above] {$V_+$}
+				;\end{circuitikz}
+			\end{center}
 
-		otra manera de decir lo mismo sería con la siguiente ecuación:
+			de donde podemos podemos inferir que:
+
+			\begin{equation}
+				k_P = \frac{R_f}{R_I} + 1
+			\end{equation}
+
+			Por lo que un control P, lo podemos diseñar encontrando las resistencias correctas para la ganancia deseada.
+
+%-------------------------------------------------------------------------------
+
+		\subsubsection{Control I}
+
+			El control Integral es una ganancia con un integrador:
+
+			\begin{center}
+				\tikzstyle{input} = [coordinate]
+				\tikzstyle{output} = [coordinate]
+				\tikzstyle{block} = [draw, rectangle, minimum height=3em, minimum width=6em]
+				\tikzstyle{init} = [pin edge={to-, thin, black}]
+
+				\begin{tikzpicture}[auto, node distance=3cm, >=latex']
+					\node [input, name=entrada] {};
+					\node [block, right of=entrada] (amplificador) {$\frac{k_I}{s}$};
+					\node [output, right of=amplificador] (salida) {};
+
+					\draw [->] (entrada) -- node[name=x] {$x$} (amplificador);
+					\draw [->] (amplificador) -- node[name=y] {$y$} (salida);
+				\end{tikzpicture}
+			\end{center}
+
+			el cual podemos construir con el siguiente circuito eléctrico:
+
+			\begin{center}
+				\begin{circuitikz} \draw
+					(0,0) node[op amp](opamp){}
+					(opamp.+) to [R, l=$R$] (-4, -0.5) node[ground] {}
+					(opamp.-) to [short, *-] (-2, 0.5) to [R, l=$R$] (-5, 0.5) node[left] {$x$}
+					(opamp.-) to [short, *-] (-1.2, 2) to [C, l=$C$] (1.2, 2)
+					(opamp.out) to [short, *-o] (2, 0) node[right] {$y$}
+					(opamp.out) to [short, *-] (1.2, 2)
+					(opamp.down) node[ground] {}
+					(opamp.up) to [short, -o] (-0.08, 1) node[above] {$V_+$}
+				;\end{circuitikz}
+			\end{center}
+
+			de donde podemos podemos inferir que:
+
+			\begin{equation}
+				k_I = - \frac{1}{RC}
+			\end{equation}
+
+			Por lo que un control I, lo podemos diseñar encontrando la resistencia y el capacitor correcto para la ganancia $k_I$ deseada.
+
+%-------------------------------------------------------------------------------
+
+		\subsubsection{Control D}
+
+			El control Derivativo es una ganancia con un derivador:
+
+			\begin{center}
+				\tikzstyle{input} = [coordinate]
+				\tikzstyle{output} = [coordinate]
+				\tikzstyle{block} = [draw, rectangle, minimum height=3em, minimum width=6em]
+				\tikzstyle{init} = [pin edge={to-, thin, black}]
+
+				\begin{tikzpicture}[auto, node distance=3cm, >=latex']
+					\node [input, name=entrada] {};
+					\node [block, right of=entrada] (amplificador) {$k_D s$};
+					\node [output, right of=amplificador] (salida) {};
+
+					\draw [->] (entrada) -- node[name=x] {$x$} (amplificador);
+					\draw [->] (amplificador) -- node[name=y] {$y$} (salida);
+				\end{tikzpicture}
+			\end{center}
+
+			el cual podemos construir con el siguiente circuito eléctrico:
+
+			\begin{center}
+				\begin{circuitikz} \draw
+					(0,0) node[op amp](opamp){}
+					(opamp.+) to [R, l=$R$] (-4, -0.5) node[ground] {}
+					(opamp.-) to [short, *-] (-2, 0.5) to [C, l=$C$] (-5, 0.5) node[left] {$x$}
+					(opamp.-) to [short, *-] (-1.2, 2) to [R, l=$R$] (1.2, 2)
+					(opamp.out) to [short, *-o] (2, 0) node[right] {$y$}
+					(opamp.out) to [short, *-] (1.2, 2)
+					(opamp.down) node[ground] {}
+					(opamp.up) to [short, -o] (-0.08, 1) node[above] {$V_+$}
+				;\end{circuitikz}
+			\end{center}
+
+			de donde podemos podemos inferir que:
+
+			\begin{equation}
+				k_D = - RC
+			\end{equation}
+
+			Por lo que un control D, lo podemos diseñar encontrando la resistencia y el capacitor correcto para la ganancia $k_D$ deseada.
+
+%-------------------------------------------------------------------------------
+
+	\subsection{Implementación práctica}
+
+		En la práctica un controlador PID completamente analógico tiene diversas desventajas, por lo que la implementación que utilizaremos es digital (y mas cercana a las usadas en la industria.)
+
+		El profesor te proporcionará el siguiente circuito:
+
+		\begin{figure}[h]
+			\begin{center}
+				\includegraphics[width=0.5\textwidth]{images/ControlPID.png}
+			\end{center}
+		\end{figure}
+
+		En el que se toma la señal de tres potenciometros para calibrar las ganancias $k_P$, $k_I$ y $k_D$ y el programa en el microcontrolador calcula la señal que debe de entregar. La parte importante del código es la siguiente:
+
+		\begin{verbatim}
+			err = ent - ref;
+			int j = 0;
+			integral = 0;
+			for (j = 0; j < 100; j = j + 1) {
+				integral = errores[j];
+			}
+
+			sal = kp*err + kd*(err - errores[i]) + ki*integral;
+		\end{verbatim}
+
+		Este codigo utiliza basicamente la siguiente ecuación:
 
 		\begin{equation}
-			V_o = \infty \left( V_i - V_{ref} \right)
+			V_O = k_P V_I + k_d \frac{d V_I}{dt} + k_I \int_0^t V_I dt
 		\end{equation}
 
-		pero como la alimentación que le damos al OPAMP no es $\infty$, no tenemos que preocuparnos por este voltaje; tan solo pensemos que si alimentamos nuestro OPAMP con $5 V$, nos dará una salida de $5 V$ o  $0 V$.
-
-		\begin{equation}
-			V_o =
-				\left\{
-					\begin{array}{rl}
-						5 V & \mbox{ si $V_{ref} < V_i$} \\
-						0 V & \mbox{ si $V_{ref} > V_i$}
-       				\end{array}
-				\right.
-		\end{equation}
-
-		Asi pues, podemos notar que funciona como un interruptor, justo lo que deseamos para nuestro control On/Off.
-		Tan solo tenemos que tomar en cuenta, cual es nuestro voltaje de referencia $V_{ref}$, con el que queremos comparar nuestra señal.
+		Puedes revisar el codigo completo en el repositorio de la clase; pero por ahora es suficiente con decir, que la entrada de la señal de referencia es el pin A3, la señal del sensor debe entrar en el pin A4. A0, A1 y A2 leen las ganancias P, I y D y la salida de la señal esta en el pin 3.
 %-------------------------------------------------------------------------------
 %	EQUIPO
 %-------------------------------------------------------------------------------
@@ -128,8 +233,11 @@
 	\begin{itemize}
 		\item 1 Fuente de Alimentación
 		\item 1 Multímetro
-		\item 1 Cable de alimentación
+		\item 1 Osciloscopio
+		\item 1 Generador de funciones
+		\item 3 Cable de alimentación
 		\item 2 Cables banana - caimán
+		\item 2 Cables coaxial - caimán
 		\item Pinzas
 	\end{itemize}
 
@@ -142,10 +250,10 @@
 	\begin{itemize}
 		\item Protoboard
 		\item 1 LM35
-		\item 1 LM358
-		\item 1 ULN2003 (Darlington array)\footnote{Arreglo de Darlington}
+		\item 1 ULN2003 (Darlington array)
 		\item 1 Motor CD de $5 V$ - $12 V$ de alimentación
-		\item 1 Rehilete\footnote{Si, como los que venden cada 15 de septiembre en las calles; no tendrás problemas para conseguirlos en una papelería.}
+		\item 1 Rehilete
+		\item 1 Potenciometro $10 k\Omega$
 		\item Resistencias
 		\begin{itemize}
 			\item $180 \Omega$
@@ -168,7 +276,7 @@
 \section{Desarrollo}
 
 	\begin{enumerate}
-		\item Diseña un circuito con tu motor, que se pueda acoplar a un sistema de control On/Off que energice el motor cuando la temperatura medida en el ambiente sea mayor a $35^o C$ y que se desenergice cuando baje la temperatura.
+		\item Diseña un circuito con tu motor, que se pueda acoplar a un sistema de control PID suministrado por el profesor; utiliza el LM35 para darle la señal de retroalimentación a tu controlador y diseña un divisor de voltaje con un potenciometro, o con un par de resistencias que te de la señal de referencia. Diseña el divisor de voltaje de tal manera que tu controlador se estabilice a las $25^o C$
 	\end{enumerate}
 
 %-------------------------------------------------------------------------------
@@ -184,7 +292,7 @@
 %-------------------------------------------------------------------------------
 
 \clearpage
-\section{Cuestionario - Práctica 5}
+\section{Cuestionario - Práctica 6}
 	Nombre del alumno: \\[0.2cm]
 	\horrule{0.5pt} \\[0.2cm] % Linea horizontal delgada
 
