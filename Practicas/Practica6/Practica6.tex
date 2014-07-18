@@ -57,7 +57,7 @@
 
 		\subsubsection{Control P}
 
-			El control Proporcional no es mas que una ganancia:
+			El control Proporcional no es más que una ganancia:
 
 			\begin{center}
 				\tikzstyle{input} = [coordinate]
@@ -192,7 +192,7 @@
 
 	\subsection{Implementación práctica}
 
-		En la práctica un controlador PID completamente analógico tiene diversas desventajas, por lo que la implementación que utilizaremos es digital (y mas cercana a las usadas en la industria.)
+		En la práctica un controlador PID completamente analógico tiene diversas desventajas, por lo que la implementación que utilizaremos es digital (y más cercana a las usadas en la industria.)
 
 		El profesor te proporcionará el siguiente circuito:
 
@@ -202,7 +202,7 @@
 			\end{center}
 		\end{figure}
 
-		En el que se toma la señal de tres potenciometros para calibrar las ganancias $k_P$, $k_I$ y $k_D$ y el programa en el microcontrolador calcula la señal que debe de entregar. La parte importante del código es la siguiente:
+		En el que se toma la señal de tres potenciómetros para calibrar las ganancias $k_P$, $k_I$ y $k_D$ y el programa en el microcontrolador calcula la señal que debe de entregar. La parte importante del código es la siguiente:
 
 		\begin{verbatim}
 			err = ent - ref;
@@ -215,13 +215,13 @@
 			sal = kp*err + kd*(err - errores[i]) + ki*integral;
 		\end{verbatim}
 
-		Este codigo utiliza basicamente la siguiente ecuación:
+		Este código utiliza básicamente la siguiente ecuación:
 
 		\begin{equation}
 			V_O = k_P V_I + k_d \frac{d V_I}{dt} + k_I \int_0^t V_I dt
 		\end{equation}
 
-		Puedes revisar el codigo completo en el repositorio de la clase; pero por ahora es suficiente con decir, que la entrada de la señal de referencia es el pin A3, la señal del sensor debe entrar en el pin A4. A0, A1 y A2 leen las ganancias P, I y D y la salida de la señal esta en el pin 3.
+		Puedes revisar el código completo en el repositorio de la clase; pero por ahora es suficiente con decir, que la entrada de la señal de referencia es el pin A3, la señal del sensor debe entrar en el pin A4. A0, A1 y A2 leen las ganancias P, I y D y la salida de la señal está en el pin 3.
 %-------------------------------------------------------------------------------
 %	EQUIPO
 %-------------------------------------------------------------------------------
@@ -253,7 +253,7 @@
 		\item 1 ULN2003 (Darlington array)
 		\item 1 Motor CD de $5 V$ - $12 V$ de alimentación
 		\item 1 Rehilete
-		\item 1 Potenciometro $10 k\Omega$
+		\item 1 Potenciómetro $10 k\Omega$
 		\item Resistencias
 		\begin{itemize}
 			\item $180 \Omega$
@@ -276,7 +276,7 @@
 \section{Desarrollo}
 
 	\begin{enumerate}
-		\item Diseña un circuito con tu motor, que se pueda acoplar a un sistema de control PID suministrado por el profesor; utiliza el LM35 para darle la señal de retroalimentación a tu controlador y diseña un divisor de voltaje con un potenciometro, o con un par de resistencias que te de la señal de referencia. Diseña el divisor de voltaje de tal manera que tu controlador se estabilice a las $25^o C$
+		\item Diseña un circuito con tu motor, que se pueda acoplar a un sistema de control PID suministrado por el profesor; utiliza el LM35 para darle la señal de retroalimentación a tu controlador y diseña un divisor de voltaje con un potenciómetro, o con un par de resistencias que te dé la señal de referencia. Diseña el divisor de voltaje de tal manera que tu controlador se estabilice a los $25^o C$
 		\item Sintoniza el controlador por medio de las reglas de sintonización de Ziegler - Nichols.
 	\end{enumerate}
 
@@ -299,8 +299,8 @@
 
 	\begin{enumerate}
 		\item ¿Bastaría con conectar un interruptor para implementar un sistema de control PID? \\ \\ \\ \\
-		\item ¿Cuantos métodos de sintonización llevan el nombre Ziegler - Nichols? \\ \\ \\ \\
-		\item Si se desea realizar un divisor de voltaje que me de como voltaje de salida $2.5 V$, y tenga como entrada $5 V$ ¿Que resistencias se deberan utilizar? \\ \\ \\ \\
+		\item ¿Cuántos métodos de sintonización llevan el nombre Ziegler - Nichols? \\ \\ \\ \\
+		\item Si se desea realizar un divisor de voltaje que me dé como voltaje de salida $2.5 V$, y tenga como entrada $5 V$ ¿Qué resistencias se deberán utilizar? \\ \\ \\ \\
 		\item Diseña un circuito eléctrico para un controlador P, que debe tener una ganancia $k_P = 15$. \\ \\ \\ \\
 		\item Diseña un circuito eléctrico para un controlador PI, que debe tener las ganancias $k_P = 10$ y $k_I = 8$. \\
 	\end{enumerate}
