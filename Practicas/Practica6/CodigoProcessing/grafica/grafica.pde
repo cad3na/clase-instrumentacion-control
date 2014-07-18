@@ -25,7 +25,7 @@ void serialEvent (Serial myPort) {
   if (inString != null) {
     inString = trim(inString);
     float inByte = float(inString); 
-    inByte = map(inByte, 0, 3.0, 0, height);
+    inByte = map(inByte, 0, 100.0, 0, height);
 
     stroke(127,34,255);
     strokeWeight(4);
