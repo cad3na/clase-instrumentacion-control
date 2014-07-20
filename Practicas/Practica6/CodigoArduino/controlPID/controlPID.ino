@@ -1,5 +1,7 @@
 // Variables a calcular
-float integral, error_anterior, error, salida;
+float integral = 0.0;
+float error_anterior = 0.0;
+float error, salida;
 // Variables a leer
 float entrada, referencia;
 float kp, ki, kd;
@@ -28,7 +30,7 @@ void loop() {
 
     // Calculo de error
     error = referencia - entrada;
-    integral = error_anterior + error;
+    integral = integral + error;
 
     // Calculo de salida del controlador
     salida = kp*error + kd*(error - error_anterior) / dt + ki*integral*dt;
