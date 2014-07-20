@@ -1,40 +1,42 @@
-float errores[100];
-float err, ent, sal;
-float dt = 0.01;
-int i = 0;
+// Variables a calcular
+float integral, error_anterior, error, salida;
+// Variables a leer
+float entrada, referencia;
+float kp, ki, kd;
+// Tiempo del ciclo de trabajo
+float dt = 0.02;
 
+// Rutina de inicializacion
 void setup() {
-  Serial.begin(9600);
-  for (i = 0; i < 100; i = i + 1) {
-    errores[i] = 0.0;
-  }
+    // Se inixializa el puerto serial a 9600 baud
+    Serial.begin(9600);
 }
 
+// Ciclo de trabajo
 void loop() {
-  float kp, ki, kd, ref, integral;
-  kp = analogRead(A0) / 1023.0;
-  delay(2);
-  ki = analogRead(A1) / 1023.0;
-  delay(2);
-  kd = analogRead(A2) / 1023.0;
-  delay(2);
-  ref = analogRead(A3) / 1023.0; 
-  delay(2);
-  ent = analogRead(A4) / 1023.0;
-  delay(2);
-  
-  err = ent - ref;
-  i = 0;
-  integral = 0;
-  for (i = 0; i < 100; i = i + 1) {
-    integral = errores[i];
-  }
-  
-  sal = kp*err + kd*(err - errores[i]) / dt + ki*integral*dt;
-  
-  Serial.println(sal*255);
-  analogWrite(3, sal*255);
-  errores[i] = err;
-  i = (i+1) % 100;
-}
+    // Lectura de valores de calibración y entradas del sistema
+    kp = analogRead(A0) / 1023.0;
+    delay(10);
+    ki = analogRead(A1) / 1023.0;
+    delay(10);
+    kd = analogRead(A2) / 1023.0;
+    delay(10);
+    referencia = analogRead(A3) / 1023.0;
+    delay(10);
+    entrada = analogRead(A4) / 1023.0;
+    delay(10);
 
+    // Calculo de error
+    error = referencia - entrada;
+    integral = error_anterior + error;
+
+    // Calculo de salida del controlador
+    salida = kp*error + kd*(error - error_anterior) / dt + ki*integral*dt;
+
+    // Se guarda el valor del error en una variable global
+    error_anterior = error;
+
+    // Se manda la salida del sistema por puerto serial y por puerto PWM
+    Serial.println(salida*255);
+    analogWrite(3, salida*255);
+}
