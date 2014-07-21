@@ -205,14 +205,18 @@
 		En el que se toma la señal de tres potenciómetros para calibrar las ganancias $k_P$, $k_I$ y $k_D$ y el programa en el microcontrolador calcula la señal que debe de entregar. La parte importante del código es la siguiente:
 
 		\begin{verbatim}
-			err = ent - ref;
-			int j = 0;
-			integral = 0;
-			for (j = 0; j < 100; j = j + 1) {
-				integral = errores[j];
-			}
+			// Calculo de error
+			error = referencia - entrada;
+			// y de la integral del error
+			integral = integral + error;
 
-			sal = kp*err + kd*(err - errores[i]) + ki*integral;
+			// Calculo de salida del controlador
+			salida = kp*error + kd*(error - error_anterior) + ki*integral;
+			if (salida < 0.0 ) {
+				salida = 0.0;
+			}
+			// Se guarda el valor del error en una variable global
+			error_anterior = error;
 		\end{verbatim}
 
 		Este código utiliza básicamente la siguiente ecuación:
