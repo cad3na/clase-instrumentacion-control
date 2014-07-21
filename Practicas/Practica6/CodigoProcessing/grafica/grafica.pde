@@ -5,7 +5,7 @@ int xPos = 1;         // horizontal position of the graph
  
 void setup () {
   // set the window size:
-  size(400, 300);        
+  size(1000, 640);        
   // List all the available serial ports
   println(Serial.list());
   myPort = new Serial(this, Serial.list()[2], 9600);
@@ -25,13 +25,19 @@ void serialEvent (Serial myPort) {
   if (inString != null) {
     inString = trim(inString);
     float inByte = float(inString); 
-    inByte = map(inByte, 0, 100.0, 0, height);
+    inByte = map(inByte, 0, 1280.0, 0, height);
 
-    stroke(127,34,255);
-    strokeWeight(4);
+    stroke(200,200,200);
+    strokeWeight(5);
     point(xPos, height - inByte);
     
-    xPos = (xPos + 10) % width;
-    background(0);
-   }
- }
+    if (xPos >= width) {
+      xPos = 0;
+      background(0);
+    } 
+    else {
+    xPos += 5;
+    }
+    
+  }
+}
